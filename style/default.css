@@ -1,0 +1,207 @@
+/* Default style sheet */
+
+/* General Styling */
+
+* {
+  font-family: 'Kalam', serif;
+}
+
+html, body {
+  background-color: gray;
+  background-image: url("hilbert-curve.png");
+  background-repeat: repeat;
+  hight: 100%;
+}
+
+/* Menu Bar */
+
+.menu {
+  background-color: black;
+  color: white;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 10px 10px 5px 5px;
+
+  width: 1000px;
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.menu a, .menu .current-menu-entry {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+
+  clear: both;
+
+  border-radius: 5px 5px 5px 5px;
+
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+
+  margin-left: 20px;
+  margin-right: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.menu a:hover {
+  border-color: white;
+}
+
+.menu .current-menu-entry, .menu .current-menu-entry:hover {
+  border-color: black;
+  color: darkorange;
+}
+
+/* Main Part */
+
+.main {
+  width: 1000px;
+
+  border-radius: 5px 5px 5px 5px;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Table of Contents */
+
+.contents {
+  float: left;
+
+  background: black;
+  color: white;
+
+  border-radius: 5px 5px 5px 5px;
+
+  width: 20%;
+  margin-left: 0;
+  margin-right: 5px;
+  margin-top: 0px;
+  margin-bottom: 0;
+
+  padding-left: 5px;
+  padding-right: 3px;
+  padding-top: 0px;
+  padding-bottom: 3px;
+}
+
+.contents a {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  margin-left: 10px;;
+  margin-right: 10px;
+  margin-top: 3px;
+  margin-bottom: 0;
+
+  border-radius: 3px;
+}
+
+.contents a:hover {
+  background: white;
+  color: black;
+}
+
+.contents h1 {
+  color: darkorange;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 8px;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* Main Page */
+
+.testpage {
+  background-image: none;
+  background-color: white;
+  width: 800px;
+}
+
+.page {
+
+  display: block;
+
+  border-radius: 5px 5px 5px 5px;
+
+  margin-left: 22%;
+  margin-right: 0;
+  margin-top: 10px;
+  margin-bottom: 5px;
+
+  padding-left: 10px;
+  padding-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+
+  background-color: white;
+}
+
+.page h1 {
+  color: darkorange;
+}
+
+.page a {
+  color: black;
+  text-decoration: underline;
+  color: darkorange;
+}
+
+.page a:visited {
+  text-decoration: underline;
+  text-decoration-style: double;
+}
+
+/* Fotter */
+
+.footer {
+  border-radius: 5px 5px 10px 10px;
+  width: 1000px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: black;
+  color: white;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer a {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.footer img {
+  max-height: 100%
+}
+
+/*
+TODO: make images ornange on hover using SVG-Filter-Color-Matrix
+See this: https://css-tricks.com/color-filters-can-turn-your-gray-skies-blue/
+.footer a:hover img {
+  -webkit-filter: invert(100%);;
+  filter: invert(100%);;
+}*/

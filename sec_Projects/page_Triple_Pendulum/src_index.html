@@ -1,0 +1,53 @@
+<html lang="de">
+<head>
+  <title>Index Page</title>
+
+  <meta name="author" contennt="Jochen K. Illerhas (called JakeI)" />
+  <meta name="keywords" contennt="Blog, JavaScript, Computer Science, Machine Learning" />
+  <meta name="description" contennt="My personal webpage" />
+  <meta name="viewport" contennt="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Kalam" />
+  <link rel="stylesheet" type="text/css" href="../../style/default.css" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+
+  <script id="pendulum" type="text/javascript" src="pendulum.js"></script>
+</head>
+<body class="page testpage">
+
+  <h1 style="font-size: 30pt; text-align: center;">Play with Pendula</h1>
+  <p>
+    Play with three pendula each of witch are very predictable &#x1F609;.
+  </p>
+
+  <canvas id="myCanvas" width="640" height="480">
+    You have a stupid Browser, go get one witch supports canvas and WebGL
+  </canvas>
+
+  <br/>
+  <div id="visual-settings">
+    <input type="checkbox" checked="true" id="checkP" />
+    <label for="checkP">Pendulum</label>
+  	<input type="checkbox" checked="true" id="checkA" />
+    <label for="checkA">Vilocity</label>
+  	<input type="checkbox" checked="true" id="checkH" />
+    <label for="checkH">Path</label>
+  </div>
+
+  <div id="command-text">
+    <span class="c">Command Prompt, type "help" to get help</span>
+  </div>
+  <input value="" id="command-line" onkeydown="commandCall(event);" />
+
+  <p style="font-size: tiny;">
+    Pleas note that this is identical to <a href="https://jakei.github.io/WebGLPendulum/dp.html" target="_blank">
+    one of my earler Projects</a>. Only the user interface changed
+    slidely.
+  <p>
+
+  <script>
+  start();
+  </script>
+
+</body>
+</html>
