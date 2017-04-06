@@ -1,11 +1,11 @@
-<html lang="de">
+<html lang="en">
 <head>
   <title>Index Page</title>
 
-  <meta name="author" contennt="Jochen K. Illerhas (called JakeI)" />
-  <meta name="keywords" contennt="Blog, JavaScript, Computer Science, Machine Learning" />
-  <meta name="description" contennt="My personal webpage" />
-  <meta name="viewport" contennt="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Jochen K. Illerhas (called JakeI)" />
+  <meta name="keywords" content="Blog, JavaScript, Computer Science, Machine Learning" />
+  <meta name="description" content="My personal webpage" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Kalam" />
   <link rel="stylesheet" type="text/css" href="../../style/default.css" />
@@ -41,12 +41,59 @@
 
   <p style="font-size: tiny;">
     Pleas note that this is identical to <a href="https://jakei.github.io/WebGLPendulum/dp.html" target="_blank">
-    one of my earler Projects</a>. Only the user interface changed
-    slidely.
+    one of my earlier Projects</a>. The user interface was changed
+    slightly und the following description was added though.
   <p>
 
+  <h1>How dose it work?</h1>
+  <img src="pendulum.svg" align="left" width="200px" />
+  <p>
+    The system of 3 attached pendula can be described using the following <em>constants</em>:
+    <ul>
+      <li>The <em>lengths</em> j, k, l (all positive real numbers)</li>
+      <li>The <em>masses</em> m, n, o (all positive real numbers)</li>
+      <li>The <em>gravitational constant</em> g (a positve real number)</li>
+    </ul>
+    The systems <em>state</em> is best described using a set of three vectors
+    (<em>vec alpha, vec betha, vec gamma</em>) each containing the value of the respective
+    angle, as well as it's fist, and second derivative.
+    (Note: that the systems state has a total of 9 real dimensions)
+  </p>
+  <p>
+    There are many options available for describing mechanical Systems. The most common is Forces.
+    It's possible to describe any mechanical system
+    using forces, unfortunately it is very hard in case of triple pendulum above to do so.
+    In fact it is so hard that it would be totally impractical to do and a more
+    sophisticated approach is needed.
+    The forces used are often though of as contemporary force fields
+    which implies the possibility of formulizing a potential Function (sometimes referred to as Lagrange Function)
+    such that its gradient is the force field. Conveniently this potential function
+    turns out to be nothing but the sum of all energies in the system hence can be found easily.
+    Once the potential function was formally described, the
+    <a href="https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation">Euler-Lagrange Equation</a> can be
+    used repeatedly (with respect to all variables) to find
+    a system of differential equations describing the motion of all pendula.
+  </p>
+  <p>
+    Doing so results in the following system of differential equations.
+    (Note that the function J has been introduced as a short hand notation).
+  </p>
+  <center><img src="diffEq.svg" width="500px" /></center>
+  <p>
+    This is a system of 3 non-linear, non-homogeneous, 2nd order ordinary
+    differential equations (ODEs) and it can not be solved analytically. In order
+    to obtain a numerical solution the order can be reduced by adding 3
+    equations describing the fact that the angular velocity of any angle is
+    equal to this angles derivative. The resulting system consists of 6 equations each
+    a first order ODE and can be solved with some
+    <a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods">Runge-Kutta method</a>.
+    Any of those methods will do but the above simulation uses Euler's method (1st order Runge-Kutta).
+    (Note that Euler's method is less accurate than higher order
+    Runge-Kutta methods).
+  </p>
+
   <script>
-  start();
+    start();
   </script>
 
 </body>

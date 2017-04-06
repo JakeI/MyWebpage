@@ -191,9 +191,9 @@ const defaultConsts = {
 			 };
 var consts = defaultConsts;
 const defaultColors = [
+	              [1.0, 0.0, 0.0, 1.0],
 	              [0.0, 1.0, 0.0, 1.0],
 	              [0.0, 0.0, 1.0, 1.0],
-	              [1.0, 1.0, 0.0, 1.0],
 	              [0.0, 1.0, 1.0, 1.0],
               ];
 var colors = defaultColors;

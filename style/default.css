@@ -7,7 +7,7 @@
 }
 
 html, body {
-  background-color: gray;
+  background-color: #999999;
   background-image: url("hilbert-curve.png");
   background-repeat: repeat;
   hight: 100%;
@@ -148,8 +148,8 @@ html, body {
   margin-top: 10px;
   margin-bottom: 5px;
 
-  padding-left: 10px;
-  padding-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
   padding-top: 10px;
   padding-bottom: 5px;
 
@@ -169,6 +169,25 @@ html, body {
 .page a:visited {
   text-decoration: underline;
   text-decoration-style: double;
+}
+
+.page em {
+  color: darkorange;
+  font-weight: normal;
+}
+
+.page ul {
+  list-style: none;
+}
+
+.page ul li {
+  text-indent: 0.7em;
+}
+
+.page ul li:before {
+  content: "\25CB";
+  color: darkorange;
+  padding-right: 0.3em;
 }
 
 /* Fotter */
