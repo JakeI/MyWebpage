@@ -3,7 +3,7 @@
 /* General Styling */
 
 * {
-  font-family: 'Kalam', "Comic Sans MS", times; 
+  font-family: 'Kalam', "Comic Sans MS", times;
 }
 
 html, body {
@@ -158,6 +158,11 @@ html, body {
 
 .page h1 {
   color: darkorange;
+  font-size: 34pt;
+}
+
+.page h2 {
+  color: darkorange;
 }
 
 .page a {
@@ -177,17 +182,8 @@ html, body {
 }
 
 .page ul {
-  list-style: none;
-}
-
-.page ul li {
-  text-indent: 0.7em;
-}
-
-.page ul li:before {
-  content: "\25CB";
-  color: darkorange;
-  padding-right: 0.3em;
+  list-style: outside;
+  list-style-image: url("list-style.svg");
 }
 
 /* Fotter */

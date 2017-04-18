@@ -1,0 +1,302 @@
+<html lang="de">
+<head>
+
+ <title>
+  Index Page
+ </title>
+ <meta content="Jochen K. Illerhas (called JakeI)" name="author"/>
+ <meta content="Blog, JavaScript, Computer Science, Machine Learning" name="keywords"/>
+ <meta content="My personal webpage" name="description"/>
+ <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+ <link href="http://fonts.googleapis.com/css?family=Kalam" rel="stylesheet" type="text/css"/>
+ <link href="../../style/default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<div class="menu">
+		<a href="../../sec_Welcome/page_Hello/index.html">Welcome</a>
+		<span class="current-menu-entry">Projects</span>
+		<a href="../../sec_Contact/page_Contact_me/index.html">Contact</a>
+	</div>
+
+	<div class="main">	<div class="main">
+
+		<div class="contents">
+			<h1>Contents</h1>
+			<a href="../page_Triple_Pendulum/index.html">Triple Pendulum</a>
+			<a href="../page_Fractional_Function_Application/index.html">Fractional Function Application</a>
+			<a href="../page_Gravity_Diff_Eq/index.html">Gravity Diff Eq</a>
+			<a href="../page_Apparent_Retrograde_Motion/index.html">Apparent Retrograde Motion</a>
+			<a href="../page_PyOpenGL_Graphics_Engine/index.html">PyOpenGL Graphics Engine</a>
+			<a href="../page_Scene_based_Graphics_Engine/index.html">Scene based Graphics Engine</a>
+			<a href="../page_xkcd_style/index.html">xkcd style</a>
+		</div>
+	</div>
+
+	<div class="page">
+
+ <h1 style="font-size: 30pt; text-align: center;">
+  xkcd style Image Transformation
+ </h1>
+ <p>
+  When presenting a visual representation of pretty much anything it is often
+      much easier to draw straight lines with precise edges and a very clean look.
+      Unfortunately this could signal a kind of confidence in whatever is represented you
+      might not actually have. So in some cases it can be beneficial to
+      use less precise visuals suggesting some uncertainty about them. This usually results
+      in a style well known from
+  <a href="https://xkcd.com/356/">
+   xkcd.com
+  </a>
+  where Randall
+      Munroe (author of "what if?") presents nerdy topics using a ruff hand drawn look.
+      (Notice that there are many precedents for this. For example:
+  <a href="https://www.khanacademy.org/">
+   Khan Academy
+  </a>
+  and
+  <a href="http://www.j3l7h.de/">
+   J&ouml;rn Loviscach
+  </a>
+  are both very successful with
+      educational content presented in an unusually messy looking visual style)
+ </p>
+ <img align="right" draggable="true" src="xkcd_plot.svg" width="300px"/>
+ <p>
+  This has been recognized by various entities, e.g. the python module
+  <a href="http://matplotlib.org/">
+   matplotlib
+  </a>
+  (an excellent plotting library)
+      comes with a set of rc parameters
+      that transform any figures style to imitate xkcd. (Just surround your plot code with a
+      "with plt.xkcd():" block and see the results). The Image on the right demonstrates
+      this style.
+ </p>
+ <p>
+  I reproduced the effect in OpenGL. My approach was quite simple:
+ </p>
+ <ul>
+  <li>
+   Let an image be represented by a function
+   <b>
+    I
+   </b>
+   : R
+   <sup>
+    2
+   </sup>
+   &rarr; R
+   <sup>
+    4
+   </sup>
+   witch maps the x, y coordinates of a pixel to that pixels color (and alpha value).
+  </li>
+  <li>
+   Let the input Image be denoted as
+   <b>
+    I
+   </b>
+  </li>
+  <li>
+   Choose a Displacement Map
+   <b>
+    D
+   </b>
+   witch is a function R
+   <sup>
+    2
+   </sup>
+   &rarr; R
+   <sup>
+    2
+   </sup>
+   (a reasonable function to chose will be discussed below)
+  </li>
+  <li>
+   Get the Output Image
+   <b>
+    O
+   </b>
+   as the composite function of Displacement Map
+   <b>
+    D
+   </b>
+   and Input Image
+   <b>
+    I
+   </b>
+   :
+   <span style="white-space: nowrap;">
+    <b>
+     O
+    </b>
+    (x, y) :=
+    <b>
+     I
+    </b>
+    (
+    <b>
+     D
+    </b>
+    (x, y))
+   </span>
+  </li>
+ </ul>
+ <video autoplay="" controls="" loop="" style="float:left;" width="340px">
+  <source src="out_holy.mp4" type="video/mp4">
+   Your browser doesn't support HTML5 video. Go get a real browser
+  </source>
+ </video>
+ <p>
+  This is quite a simple setup, that depends on choosing a good
+      Displacement Map
+  <b>
+   D
+  </b>
+  . Obviously, the Euclidian Norm of
+  <b>
+   D
+  </b>
+  shouldn't exceed a set small value,
+      otherwise elements of the input image would end up scattered over the entire output image.
+      But the direction remains to be decided. I tried drawing randomly from a uniform distribution.
+      But such directions look far too messy. Then I tried to give it a more natural look by drawing form a
+      normal distribution instead. Still without satisfying results. I tried to slightly de-noise
+  <b>
+   D
+  </b>
+  by
+      applying a Gaussian filter; unsuccessful. I tried the previous methods again to generate just a few values
+      for my function than I interpolated (linear, quadratic, cubic, etc.) between those values to get
+  <b>
+   D
+  </b>
+  ;
+      this gives really ugly results.
+      I tried to de-noise by taking the Fourier Transform convolving
+      with parts of itself and applying the Inverse Fourier Transform. The awful result of this last method
+      are displayed on the left (the Euclidian Norm of D increases over time).
+ </p>
+ <p>
+  I had thought about and dismissed the idea of using sinusoids because I was confident that sinusoids would
+      look far too regular. I had experienced a similar problem when I tried to implement a "under water" shading
+      effect in my
+  <a href="../page_PyOpenGL_Graphics_Engine/index.html">
+   PyOpgenGL Graphics Engine
+  </a>
+  .
+      (
+  <a href="https://www.youtube.com/channel/UCUkRj4qoT1bsWpE_C8lZYoQ">
+   ThinMatrix
+  </a>
+  experienced similar issues when
+  <a href="https://www.youtube.com/watch?v=K6qqQACUxXI">
+   implementing low poly water
+  </a>
+  for the game equinox).
+      But after the drawing form random distributions approach went as described above, I decided to
+      have a go at sinusoids anyway and I am actually quite happy with the results.
+ </p>
+ <video autoplay="" controls="" loop="" style="float:right;" width="400px">
+  <source src="out_holy_sin.mp4" type="video/mp4">
+  </source>
+  Your browser doesn't support HTML5 video. Go get a real browser.
+ </video>
+ <p>
+  The animation on the right, shows the effect of this final harmonic wave like
+      transformation. So the Displacement Map
+  <b>
+   D
+  </b>
+  used here is
+      given (in standard Cartesian Coordinates) by the function:
+ </p>
+ <center>
+  <img src="DisplacementFunc.svg" width="300px"/>
+ </center>
+ <p>
+  Where
+  <em>
+   &lambda;
+  </em>
+  is constant (0.2 in the animation on the right, with the x and y coordinates
+      reaching from 0 to 1), and
+  <em>
+   t
+  </em>
+  is an indicator of the maximum length the displacement vector can be
+      (Note that
+  <em>
+   t
+  </em>
+  isn't exacly this max value). In the animation
+  <em>
+   t
+  </em>
+  increases from
+      0 to 5% over time.
+ </p>
+ <p>
+  Looking at the final equation the similarities to e.g. a field of
+      normal vectors on moving water are quite obvious (a wave at specific point in time,
+      weirdly using the L1 metric rather than L2).
+      So the result can be thought of as an approximation of what you would see if the
+      input image lay on the floor of a lake and you were looking through the lakes surface
+      down to your input image.
+ </p>
+ <p>
+  Unfortunately, this is far from perfect and
+      it certainly isn't what matplotlib dose. Here is a list of
+      the methods main floors:
+ </p>
+ <ul>
+  <li>
+   This doesn't work on text. Text looks distorted without the feel this is going for.
+        Fortunately, there is an easy fix: Don't transform text, instead add all text to the
+        result after it has been transformed.
+  </li>
+  <li>
+   Thick constant width lines in the input end up having a unnatural looking non constant width.
+        I would assume, that matplotlib bypasses the problem, by applying the xkcd effect to the lines location
+        not it's width, (easy to do if you are working with vector graphics, impossible with my pixel graphics).
+  </li>
+  <li>
+   Anti aliasing is required. (To generate the animation above I created an image 9 times the size
+        of the final output and scaled it down to improve the quality. Its not too bad though; this can be done in a single
+        GLSL Fragment Shader so the performance loss is insignificant).
+  </li>
+ </ul>
+ <table border="0">
+  <tr>
+   <th>
+    Input
+   </th>
+   <th>
+    Output
+   </th>
+  </tr>
+  <tr>
+   <td style="text-align:center;">
+    <img src="holy.png" width="95%"/>
+   </td>
+   <td style="text-align:center;">
+    <img src="out_holy.png" width="95%"/>
+   </td>
+  </tr>
+ </table>
+ <center style="padding-bottom:30px;">
+  <a href="https://github.com/JakeI/xkcd_style" target="_blank">
+   <img onmouseout="this.src='../../icons/github-big-black.png'" onmouseover="this.src='../../icons/github-big-orange.png'" src="../../icons/github-big-black.png" width="128px"/>
+  </a>
+ </center>
+	</div>
+	</div>	<div class="footer">
+		<a href="mailto:j.illerhaus@live.de" >
+			<img src="../../icons/email.png" onmouseover="this.src='../../icons/email-orange.png'" onmouseout="this.src='../../icons/email.png'">		<a href="https://github.com/JakeI" >
+			<img src="../../icons/github.png" onmouseover="this.src='../../icons/github-orange.png'" onmouseout="this.src='../../icons/github.png'">		<a href="https://www.facebook.com/jochen.illerhaus" >
+			<img src="../../icons/facebook.png" onmouseover="this.src='../../icons/facebook-orange.png'" onmouseout="this.src='../../icons/facebook.png'">		<a href="https://www.youtube.com/channel/UCay4-64cUMwgApgBtUtwDww" >
+			<img src="../../icons/youtube.png" onmouseover="this.src='../../icons/youtube-orange.png'" onmouseout="this.src='../../icons/youtube.png'">		<a href="https://www.linkedin.com/in/JochenIllerhaus" >
+			<img src="../../icons/linkedin.png" onmouseover="this.src='../../icons/linkedin-orange.png'" onmouseout="this.src='../../icons/linkedin.png'">	</div>
+
+</body>
+</html>

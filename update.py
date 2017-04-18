@@ -50,11 +50,11 @@ def main():
             current_head = ""
             current_body = ""
 
-            with open(os.path.join(f, p, "src_index.html")) as source:
+            with open(os.path.join(f, p, "src_index.html"), 'r', encoding="utf-8") as source:
                 bs = bs4.BeautifulSoup(source.read(), "lxml")
-                current_head = str(bs.find('head'))
+                current_head = bs.find('head').prettify('ascii', formatter='html').decode('utf-8', 'xmlcharrefreplace')
                 current_head = current_head[current_head.find('>')+1:current_head.rfind('<')]
-                current_body = str(bs.find('body'))
+                current_body = bs.find('body').prettify('ascii', formatter='html').decode('utf-8', 'xmlcharrefreplace')
                 current_body = current_body[current_body.find('>')+1:current_body.rfind('<')]
 
             # write state
@@ -95,32 +95,23 @@ def main():
                 target.write('\t</div>')
 
                 #make footer
-
-                target.write('''
-    <div class="footer">
-        <a href="mailto:j.illerhaus@live.de">
-          <img src="../../icons/email.png" />
-        </a>
-        <a href="https://github.com/JakeI" target="_blank">
-          <img src="../../icons/github.png" />
-        </a>
-        <a href="https://www.facebook.com/jochen.illerhaus" target="_blank">
-          <img src="../../icons/facebook.png" />
-        </a>
-        <a href="https://www.youtube.com/channel/UCay4-64cUMwgApgBtUtwDww" target="_blank">
-          <img src="../../icons/youtube.png" />
-        </a>
-        <a href="https://www.linkedin.com/in/JochenIllerhaus" target="_blank">
-          <img src="../../icons/linkedin.png" />
-        </a>
-    </div>
-                ''')
+                target.write('\t<div class="footer">\n')
+                for ref, img in [
+                                    ("mailto:j.illerhaus@live.de", "email"),
+                                    ("https://github.com/JakeI", "github"),
+                                    ("https://www.facebook.com/jochen.illerhaus", "facebook"),
+                                    ("https://www.youtube.com/channel/UCay4-64cUMwgApgBtUtwDww", "youtube"),
+                                    ("https://www.linkedin.com/in/JochenIllerhaus", "linkedin")
+                                ]:
+                    target.write('\t\t<a href="%s" >\n' % ref)
+                    target.write(('\t\t\t<img src="../../icons/%s.png"' + \
+                                 ' onmouseover="this.src=\'../../icons/%s-orange.png\'"' + \
+                                 ' onmouseout="this.src=\'../../icons/%s.png\'">') % (img, img, img))
+                target.write('\t</div>\n\n')
 
                 target.write('</body>\n')
                 target.write('</html>\n')
-            print("sucsessfully build file %s/%s/index.html" %
-                (f, p))
-
+            print("sucsessfully build file %s/%s/index.html" % (f, p))
 
 if __name__ == "__main__":
     main()
