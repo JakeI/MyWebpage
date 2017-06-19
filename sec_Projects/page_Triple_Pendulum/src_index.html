@@ -57,7 +57,11 @@
     The systems <em>state</em> is best described using a set of three vectors
     (<em>vec alpha, vec betha, vec gamma</em>) each containing the value of the respective
     angle, as well as it's first, and second derivative.
-    (Note: that the systems state has a total of 9 real dimensions)
+    (Note: that the systems state has a total of 9 real dimensions, but the
+    second derivatives of these angles are not critical for the definition of the systems state in a
+    mathematical sense. They are still considered to be part of the state because the resulting linked
+    differential equations can be described as independent functions of this system state if this
+    definition is used).
   </p>
   <p>
     There are many options available for describing mechanical Systems. The most common is Forces.
@@ -65,12 +69,10 @@
     using forces, unfortunately it is very hard to do so in the case above.
     In fact it is so hard that it would be totally impractical to do hence a more
     sophisticated approach is needed.
-    A helpful fact for devising such a approach is that, the forces in a classic
-    Newtonian model can be though of as contemporary force fields
-    implying the existents of a potential function (sometimes referred to as Lagrange Function)
-    such that its gradient is the force field. Conveniently this potential function
-    turns out to be nothing but the sum of all energies in the system hence can be found easily.
-    Once the potential function was formally described, the
+    It is possible to describe the behavior of such a system in a single
+    Lagrange Function. Usually it is possible to find this function by subtracting
+    the potential energy in the system form the kinetic energy.
+    Once the Lagrange Function was formally described, the
     <a href="https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation">Euler-Lagrange Equation</a> can be
     used repeatedly (with respect to all variables) to find
     a system of differential equations describing the motion of all pendula.
