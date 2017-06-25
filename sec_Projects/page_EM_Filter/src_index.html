@@ -1,4 +1,4 @@
-<html lang="de">
+<html lang="en">
 <head>
   <title>Electromagnetic Filter</title>
 
@@ -18,7 +18,7 @@
 <body class="page testpage">
     <h1 style="font-size:44pt;text-align:center;">Electromagnetic Filter</h1>
     <p>
-      A common topic in Highschool physics is the electromagnetic velocity filter/selector (
+      A common topic in High school physics is the electromagnetic velocity filter/selector (
       <a href="https://en.wikipedia.org/wiki/Wien_filter">Wienfilter</a>). It turns out that
       the reason it works has only little to do with what students are thought.
     </p>
@@ -40,15 +40,15 @@
       constant and known velocity. Electromagnetic velocity Filters are used to
       deflect particles of unwonted speeds and only let particles witch already have
       a specific speed <em>v&#773;</em> pass to the next step in the classification process.
-      A simple illustration of a EM Filter can be seen on the right.
-      All relative location given (left, right, horizonatlly, ...) are in refrence to this
+      A simple illustration of an EM Filter can be seen on the right.
+      All relative locations given (left, right, horizontally, ...) are in reference to this
       illustration (Note: you could turn the entire setup upside down without effecting how it works).
       In the setup a homogeneous magnetic field <em>⃗B</em> points into the
       drawing plain and a homogeneous electric field <em>⃗E</em> is perpendicular to the magnetic field. The
       steam of particles is sent in on the left and (initially) the particles velocities are
       at right angles to both the magnetic and the electric field. The electromagnetic force on each particle
       is the sum of the electric and magnetic forces (<em>⃗F<sub>m</sub></em> and <em>⃗F<sub>e</sub></em>
-      respectively) witch are aligned as shown above. So since the magnitude of the magnetic
+      respectively) which are aligned as shown above. So since the magnitude of the magnetic
       force depends on the magnitude of the velocity, it's obvious that there has to be some
       speed <em>v&#773;</em> such that electric and magnetic forces cancel perfectly.
       In this case the net force on the particle is zero so it will not be deflected
@@ -56,7 +56,7 @@
       For particles moving at a speed other than <em>v&#773;</em> there must be a net force
       hence they are deflected thus filtered out from the particle stream. Solving the described equation
       yields that the critical speed is <em>v&#773; = E/B</em> (<em>B</em> and <em>E</em> are the magnitudes of the magnetic
-      and electric fields respectively and the full equation is knowen as the Wien Condition
+      and electric fields respectively and the full equation is known as the Wien Condition
       <a target="_blank" href="https://books.google.de/books?id=oQccAseXmtcC&lpg=PA3&ots=3vr3qyEYs-&dq=cycloide%20wien%20filter&pg=PA2#v=onepage&q=cycloide%20wien%20filter&f=false">
         [see here]</a>).
       <a href="https://www.didaktik.physik.uni-muenchen.de/elektronenbahnen/en/b-feld/anwendung/geschwindigkeitsfilter.php">
@@ -66,32 +66,32 @@
     <p>
       As previously stated this is the explanation you will likely find right away
       when researching the topic. At first glance it seams reasonable and when I was
-      introduced to the problem (in Highschool) I was satisfied with this.
+      introduced to the problem (in High school) I was satisfied with this.
       But recently my attention was drawn back to the problem and I realized that this
       explanation is deeply floored.
     </p>
     <img src="Filter.svg" width="450px" draggable="true" align="left"
       style="margin-right: 10px;" />
     <p>
-      In fact the explanation is only valid for the very fist moment. This is easy to
+      In fact the explanation is only valid for the very first moment. This is easy to
       understand when looking at edge cases. Suppose the particle placed in the filter has no
-      initial velocity (it is <em>0</em>). At fist, it won't be affected by the magnetic field. So the only
+      initial velocity (it is <em>0</em>). At first, it won't be affected by the magnetic field. So the only
       force acting on the particle will be the eclectic force. According to the explanation given
       above this will cause the particle to move on a vertical line. Here is the problem though,
       moving on a vertical line means that the velocity is non-zero and the magnetic force has
       to be consider. This magnetic force will be perpendicular to the magnetic field and
       the velocity, hence the particle velocity will be in the plane drawn on the left and can
       be described using two coordinates <em>⇒ ⃗v := (v<sub>x</sub>, v<sub>y</sub>, 0)<sup>T</sup></em>.
-      As there is no way the particle will ever leaf the xy-Plain, the z components of vilocity and
+      As there is no way the particle will ever leaf the xy-plain, the z components of velocity and
       position are just <em>0</em>. To simplify the equations the z components will be
       dropped were ever convenient (they are implicitly considered to be <em>0</em>).
-      Suppose the Electric Field <em>⃗E</em> is given by <em>(0, -E, 0)<sup>T</sup></em> and the
-      Magnetic Field <em>⃗M</em> by <em>(0, 0, B)<sup>T</sup></em>. For simplicity, define the
+      Suppose the electric field <em>⃗E</em> is given by <em>(0, -E, 0)<sup>T</sup></em> and the
+      magnetic field <em>⃗M</em> by <em>(0, 0, B)<sup>T</sup></em>. For simplicity, define the
       constants <em>&omega; := qB/m</em> (<em>q</em> is the charge of the particle,
       <em>&omega;</em> is the
       <a href="https://en.wikipedia.org/wiki/Cyclotron_resonance#Cyclotron_frequency">
         Cyclotron angular frequency</a>) and
-      <em>v&#773; := E/B</em> (just as above). Than the definition of the Electromagnetic force can be simplified
+      <em>v&#773; := E/B</em> (just as above). Than the definition of the electromagnetic force can be simplified
       to the following set of linked differential equations:
     </p>
     <img src="EM-Sys.svg" alt="\vec{F}_{EM} = q( \vec{E} + \vec{v} \times \vec{B})
@@ -144,7 +144,7 @@
       <em></sup>u<sub>x</sub> = 1 10<sup>5</sup> m/s = v&#773; = E/B</em> (middle), and
       <em>u<sub>x</sub> = 5 10<sup>5</sup> m/s = 5 v&#773;</em> (bottom) on the right.
       The animation below shows the same for <em>u<sub>x</sub></em>
-      taken form a range form <em>0</em> to <em>5 v&#773;</em>.
+      taken form a range from <em>0</em> to <em>5 v&#773;</em>.
       Unsurprisingly, this model still predicts that particles with
       <em>u<sub>x</sub> = v&#773;</em> will move on a horizontal line (middle plot).
       What's new is that slow particles (top plot) move on a cycloid curve
@@ -169,7 +169,7 @@
       specifically as <a href="https://en.wikipedia.org/wiki/Trochoid">trochoides</a>
       (the path traced by a fixed point on a circle rolling on a straight line).
       For <em>u<sub>x</sub> = 0</em> the trajectory turns out to be a common
-      trochid (also called a cycloid). The Animation below shows how this curve
+      trochoid (also called a cycloid). The Animation below shows how this curve
       could be constructed as a roulette.
     </p>
     <center>
@@ -186,21 +186,21 @@
     </div>
     <p>
       Similarly, the trajectory for <em>u<sub>x</sub> = 5v&#773;</em> is a
-      a prolate trochid. The animation on the left rolls a small circle on
+      a prolate trochoid. The animation on the left rolls a small circle on
       a straight line, than traces a fixed point on the circle but outside its
       boundary to construct the particle trajectory.
     </p>
     <p>
-      Trochids are a superposition of linear and circular motion. Electric fields
+      Trochoids are a superposition of linear and circular motion. Electric fields
       generally cause linear motion while magnetic fields cause circular motion.
-      It seams reasonable, that a superposition of electric and magnetic fields
-      would cause a particle to move on a path which is a superposing of linear
+      It seems reasonable, that a superposition of electric and magnetic fields
+      would cause a particle to move on a path which is a superposition of linear
       and circular motion. So this trajectory isn't that surprising after all.
     </p>
     <img src="alpha-time.svg" width="500px" align="left" />
     <p>
       But if the filter dose not deflect any particles regardless of speed,
-      how dose it work? The short answer is it dose not. The filter dose not
+      how does it work? The short answer is it does not. The filter dose not
       filter out all particles with unwanted speeds. But it allows viewer particles
       to pass if they have the wrong <em>u<sub>x</sub></em>.
     </p>
@@ -211,7 +211,7 @@
       moving on a horizontal line) the electron would keep flying in the horizontal
       direction and be a part of the filtered particle stream. Fortunately times
       when the electron moves horizontally are quite rare.
-      Lets considerer all particles
+      Let’s considerer all particles
       deflected by more than <em>±5°</em> to be successfully sorted out. Sticking to the
       example from above the angle <em>&alpha; = arg{v<sub>x</sub> + iv<sub>y</sub>}</em>,
       which corresponds to the slope of the tangent line to the trajectory, can
@@ -223,18 +223,18 @@
       On the other hand, for <em>u<sub>x</sub></em> other than <em>v&#773;</em> there are only
       small time intervals in which particles are moving horizontally. At some point
       the EM fields will end because the filter has a finite size (this assumption may
-      not be very close to real magnetic fields which decrees in strength but don't have a clear
-      boundary but it is the best one can do without being specific about the dimensions of the filter)
+      not be very close to reality because real magnetic fields decrease in strength but don't have a clear
+      boundary)
        but at what point
       in the trajectory's period this will occur is basically random. So if <em>r</em> is
-      the ratio of time the trajectory spends in the <em>±5°</em> range to it's period,
+      the ratio of time the trajectory spends in the <em>±5°</em> range to its period,
       the probability of any given electron ending up in the output particle stream should be
       <em>r</em>.
     </p>
     <p>
       Particles with the wrong initial speed not being sorted out
       would not be a problem if the particles were moving at <em>v&#773;</em>
-      when ever they moved horizontally (so if the setup accelerated them to the desired speed).
+      whenever they moved horizontally (so if the setup accelerated them to the desired speed).
       To see if this is so the
       plot on the left and the animation below show a dashed line which represents the magnitude of the particles
       velocities (and corresponds to the right y-axis). Unfortunately the plots clearly show that the electrons
@@ -262,17 +262,17 @@
       vs <em>u<sub>x</sub></em> is on the right. So the solid orange line represents
       the probability that a particle with <em>u<sub>x</sub></em> will be deflected by
       <em>±5°</em> or less. Clearly, there is one spike around <em>v&#773;</em> which
-      will always pass through. For any other <em>u<sub>x</sub></em> chances are they
-      will be sorted out. Since the <em>±5°</em> range was an arbetrary choise, the
+      will always pass through. For any other <em>u<sub>x</sub></em> chances are the particles
+      will be sorted out. Since the <em>±5°</em> range was an arbitrary choice, the
       dashed lines show the effects of making different choices. The result is what was to be
-      expected: A narrower definition of &quot;moving horizontally&quot; means that
+      expected: A narrower definition of &quot;moving horizontally&quot; means
       less particles of the wrong speed pass though the filter.
     </p>
     <p>
       So my conclusion is:
     </p>
     <ul>
-      <li>Highschool students are routinely lied to about how EM-velocity filters work.</li>
+      <li>High school students are routinely lied to about how EM-velocity filters work.</li>
       <li>Particles in the filter move on trochoid shaped trajectories.</li>
       <li>
         The probability of a particle to just happen to move horizontally when it
@@ -283,7 +283,7 @@
       <li>
         This assumes that the EM field will just end at some point. (Note that
         a real EM-field will decrease in strength and become less homogeneous
-        before it is to weak to have any effect. So it doesn't actually have a boundary
+        before it is too weak to have any effect. So it doesn't actually have a boundary
         at which it could &quot;end&quot;)
       </li>
     </ul>
