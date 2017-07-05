@@ -4,7 +4,7 @@
  <title>
   Electromagnetic Filter
  </title>
- <meta content="Jochen K. Illerhas (called JakeI)" name="author"/>
+ <meta content="Jochen K. Illerhaus (called JakeI)" name="author"/>
  <meta content="Blog, JavaScript, Computer Science, Machine Learning" name="keywords"/>
  <meta content="My personal webpage" name="description"/>
  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -41,12 +41,12 @@
   Electromagnetic Filter
  </h1>
  <p>
-  A common topic in High school physics is the electromagnetic velocity filter/selector (
+  A common topic in high school physics is the electromagnetic velocity filter/selector (
   <a href="https://en.wikipedia.org/wiki/Wien_filter">
    Wienfilter
   </a>
   ). It turns out that
-      the reason it works has only little to do with what students are thought.
+      the reason it works has little to do with what students are thought in school.
  </p>
  <p>
   <em>
@@ -62,21 +62,21 @@
   <a href="https://en.wikipedia.org/wiki/Mass_spectrometry">
    mass-spectrometry
   </a>
-  (=in trying to classify charged particles such as Ions
+  (=in trying to classify charged particles such as ions
       based on their mass-charge-ratio). It is possible to
       produce streams of such particles. Unfortunately, particle in such
-      streams have varying speeds but the method used for the actual
-      classification requires the incoming stream of particles to have a
+      streams have varying speeds but the methods used for the actual
+      classification require the incoming stream of particles to have a
       constant and known velocity. Electromagnetic velocity Filters are used to
-      deflect particles of unwonted speeds and only let particles witch already have
+      deflect particles of unwonted speeds and only let particles already moving at
       a specific speed
   <em>
    v&#773;
   </em>
   pass to the next step in the classification process.
       A simple illustration of an EM Filter can be seen on the right.
-      All relative locations given (left, right, horizontally, ...) are in reference to this
-      illustration (Note: you could turn the entire setup upside down without effecting how it works).
+      All relative locations given (left, right, horizontal, &hellip;) are in reference to this
+      illustration (Note: you could rotate the entire setup without affecting the way it works).
       In the setup a homogeneous magnetic field
   <em>
    &#8407;B
@@ -131,7 +131,7 @@
    E
   </em>
   are the magnitudes of the magnetic
-      and electric fields respectively and the full equation is known as the Wien Condition
+      and electric fields respectively. The full equation is known as the Wien Condition
   <a href="https://books.google.de/books?id=oQccAseXmtcC&amp;lpg=PA3&amp;ots=3vr3qyEYs-&amp;dq=cycloide%20wien%20filter&amp;pg=PA2#v=onepage&amp;q=cycloide%20wien%20filter&amp;f=false" target="_blank">
    [see here]
   </a>
@@ -142,7 +142,7 @@
  </p>
  <p>
   As previously stated this is the explanation you will likely find right away
-      when researching the topic. At first glance it seams reasonable and when I was
+      when researching the topic. At first glance it seems reasonable and when I was
       introduced to the problem (in High school) I was satisfied with this.
       But recently my attention was drawn back to the problem and I realized that this
       explanation is deeply floored.
@@ -150,7 +150,7 @@
  <img align="left" draggable="true" src="Filter.svg" style="margin-right: 10px;" width="450px"/>
  <p>
   In fact the explanation is only valid for the very first moment. This is easy to
-      understand when looking at edge cases. Suppose the particle placed in the filter has no
+      understand when considering edge cases. Suppose the particle placed in the filter has no
       initial velocity (it is
   <em>
    0
@@ -160,7 +160,7 @@
       above this will cause the particle to move on a vertical line. Here is the problem though,
       moving on a vertical line means that the velocity is non-zero and the magnetic force has
       to be consider. This magnetic force will be perpendicular to the magnetic field and
-      the velocity, hence the particle velocity will be in the plane drawn on the left and can
+      the velocity, hence the particles velocity will be in the plane drawn on the left and can
       be described using two coordinates
   <em>
    &rArr; &#8407;v := (v
@@ -271,7 +271,7 @@
    </sup>
    }
   </em>
-  were
+  where
   <em>
    &#8466;
    <sub>
@@ -301,7 +301,7 @@
    </sup>
   </em>
   applying
-      the product rule, integrating both sides and solving for
+      the product rule, integrating and solving for
   <em>
    &#8407;v
   </em>
@@ -386,7 +386,7 @@
   ,
       a magnetic field
   <em>
-   M
+   B
   </em>
   of
   <em>
@@ -572,7 +572,7 @@
   is a
       a prolate trochoid. The animation on the left rolls a small circle on
       a straight line, than traces a fixed point on the circle but outside its
-      boundary to construct the particle trajectory.
+      boundary to construct the particles trajectory.
  </p>
  <p>
   Trochoids are a superposition of linear and circular motion. Electric fields
@@ -598,7 +598,7 @@
  <p>
   Looking at the trajectories above shows that there are times when the electron moves
       on a horizontal line. If the Electromagnetic fields where switched of/ended exactly
-      at a maximum y value (witch happens to be the time when it is momentarily
+      at a maximum y value (which happens to be the time when it is momentarily
       moving on a horizontal line) the electron would keep flying in the horizontal
       direction and be a part of the filtered particle stream. Fortunately times
       when the electron moves horizontally are quite rare.
@@ -622,13 +622,13 @@
   </em>
   ,
       which corresponds to the slope of the tangent line to the trajectory, can
-      be plotted against time (see the solid line (and the left y-axis) in the plot on the
+      be plotted over time (see the solid line (and the left y-axis) in the plot on the
       left or the animation below). The
   <em>
    &plusmn;5&deg;
   </em>
   range and the curves
-      intersections with it's boundary's
+      intersections with its boundary's
       have been marked in the plot. This clearly shows that the
       middle
   <em>
@@ -655,7 +655,7 @@
    v&#773;
   </em>
   there are only
-      small time intervals in which particles are moving horizontally. At some point
+      short time intervals in which particles are moving horizontally. At some point
       the EM fields will end because the filter has a finite size (this assumption may
       not be very close to reality because real magnetic fields decrease in strength but don't have a clear
       boundary)
@@ -684,7 +684,7 @@
   </em>
   whenever they moved horizontally (so if the setup accelerated them to the desired speed).
       To see if this is so the
-      plot on the left and the animation below show a dashed line which represents the magnitude of the particles
+      plot on the left and the animation below show a dashed line representing the magnitude of the particles
       velocities (and corresponds to the right y-axis). Unfortunately the plots clearly show that the electrons
       do not simultaneously move on a horizontal line and at
   <em>
@@ -698,12 +698,12 @@
   </em>
   instead all velocities are to be expected (assuming that
       the input stream also contained particles moving at all possible velocities),
-      but there will be significantly viewer particles moving at undesired speeds
+      but there will be significantly less particles moving at undesired speeds
       than at the desired speed
   <em>
    v&#773;
   </em>
-  .
+  in the output stream.
  </p>
  <center>
   <video autoplay="" loop="" width="95%">
@@ -807,7 +807,7 @@
    This assumes that the EM field will just end at some point. (Note that
         a real EM-field will decrease in strength and become less homogeneous
         before it is too weak to have any effect. So it doesn't actually have a boundary
-        at which it could "end")
+        to "end" at)
   </li>
  </ul>
 	</div>

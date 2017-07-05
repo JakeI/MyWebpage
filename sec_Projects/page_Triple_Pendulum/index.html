@@ -4,7 +4,7 @@
  <title>
   Triple Pendulum - Jake
  </title>
- <meta content="Jochen K. Illerhas (called JakeI)" name="author"/>
+ <meta content="Jochen K. Illerhaus (called JakeI)" name="author"/>
  <meta content="Blog, JavaScript, Computer Science, Machine Learning" name="keywords"/>
  <meta content="My personal webpage" name="description"/>
  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -43,10 +43,10 @@
   Play with Pendula
  </h1>
  <p>
-  Play with three pendula each of witch are very predictable &#128521;.
+  Play with three pendula each of which are very predictable &#128521;.
  </p>
  <canvas height="480" id="myCanvas" width="640">
-  You have a stupid Browser, go get one witch supports canvas and WebGL
+  You have a stupid Browser, go get one which supports canvas and WebGL
  </canvas>
  <br/>
  <div id="visual-settings">
@@ -65,12 +65,12 @@
  </div>
  <div id="command-text">
   <span class="c">
-   Command Prompt, type "help" to get help
+   Command Prompt: type "help" to get help
   </span>
  </div>
  <input id="command-line" onkeydown="commandCall(event);" value=""/>
  <p style="font-size: tiny;">
-  Pleas note that this is identical to
+  Please note that this is identical to
   <a href="https://jakei.github.io/WebGLPendulum/dp.html" target="_blank">
    one of my earlier Projects
   </a>
@@ -80,7 +80,7 @@
  <p>
  </p>
  <h1>
-  How dose it work?
+  How does it work?
  </h1>
  <img align="left" src="pendulum.svg" width="200px"/>
  <p>
@@ -110,7 +110,7 @@
    <em>
     gravitational constant
    </em>
-   g (a positve real number)
+   g (a positive real number)
   </li>
  </ul>
  The systems
@@ -120,30 +120,28 @@
  is best described using a set of three vectors
     (
  <em>
-  vec alpha, vec betha, vec gamma
+  vec alpha, vec beta, vec gamma
  </em>
  ) each containing the value of the respective
     angle, as well as it's first, and second derivative.
     (Note: that the systems state has a total of 9 real dimensions, but the
     second derivatives of these angles are not critical for the definition of the systems state in a
     mathematical sense. They are still considered to be part of the state because the resulting linked
-    differential equations can be described as independent functions of this system state if this
+    differential equations can be described as independent functions of the system state if this
     definition is used).
  <p>
   There are many options available for describing mechanical Systems. The most common is Forces.
     It's possible to describe any mechanical system
     using forces, unfortunately it is very hard to do so in the case above.
-    In fact it is so hard that it would be totally impractical to do hence a more
+    In fact it is so hard, it would be totally impractical hence a more
     sophisticated approach is needed.
     It is possible to describe the behavior of such a system in a single
-    Lagrange Function. Usually it is possible to find this function by subtracting
-    the potential energy in the system form the kinetic energy.
-    Once the Lagrange Function was formally described, the
+    Lagrange Function.  Once the Lagrange Function was formally described, the
   <a href="https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation">
    Euler-Lagrange Equation
   </a>
   can be
-    used repeatedly (with respect to all variables) to find
+    used (with respect to each variable) to find
     a system of differential equations describing the motion of all pendula.
  </p>
  <p>
@@ -155,7 +153,7 @@
  </center>
  <p>
   This is a system of 3 non-linear, non-homogeneous, 2nd order ordinary
-    differential equations (ODEs) and it can not be solved analytically. In order
+    differential equations (ODEs) and it cannot be solved analytically. In order
     to obtain a numerical solution the order can be reduced by adding 3
     equations describing the fact that the angular velocity of any angle is
     equal to this angles derivative. The resulting system consists of 6 equations each

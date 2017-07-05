@@ -2,7 +2,7 @@
 <head>
   <title>Electromagnetic Filter</title>
 
-  <meta name="author" content="Jochen K. Illerhas (called JakeI)" />
+  <meta name="author" content="Jochen K. Illerhaus (called JakeI)" />
   <meta name="keywords" content="Blog, JavaScript, Computer Science, Machine Learning" />
   <meta name="description" content="My personal webpage" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,9 +18,9 @@
 <body class="page testpage">
     <h1 style="font-size:44pt;text-align:center;">Electromagnetic Filter</h1>
     <p>
-      A common topic in High school physics is the electromagnetic velocity filter/selector (
+      A common topic in high school physics is the electromagnetic velocity filter/selector (
       <a href="https://en.wikipedia.org/wiki/Wien_filter">Wienfilter</a>). It turns out that
-      the reason it works has only little to do with what students are thought.
+      the reason it works has little to do with what students are thought in school.
     </p>
     <p>
       <em>Disclaimer:</em> I'm not an export on any of this. This has been reviewed
@@ -32,17 +32,17 @@
     <p>
       Electromagnetic velocity filters have applications in
       <a href="https://en.wikipedia.org/wiki/Mass_spectrometry">mass-spectrometry</a>
-      (=in trying to classify charged particles such as Ions
+      (=in trying to classify charged particles such as ions
       based on their mass-charge-ratio). It is possible to
       produce streams of such particles. Unfortunately, particle in such
-      streams have varying speeds but the method used for the actual
-      classification requires the incoming stream of particles to have a
+      streams have varying speeds but the methods used for the actual
+      classification require the incoming stream of particles to have a
       constant and known velocity. Electromagnetic velocity Filters are used to
-      deflect particles of unwonted speeds and only let particles witch already have
+      deflect particles of unwonted speeds and only let particles already moving at
       a specific speed <em>v&#773;</em> pass to the next step in the classification process.
       A simple illustration of an EM Filter can be seen on the right.
-      All relative locations given (left, right, horizontally, ...) are in reference to this
-      illustration (Note: you could turn the entire setup upside down without effecting how it works).
+      All relative locations given (left, right, horizontal, …) are in reference to this
+      illustration (Note: you could rotate the entire setup without affecting the way it works).
       In the setup a homogeneous magnetic field <em>⃗B</em> points into the
       drawing plain and a homogeneous electric field <em>⃗E</em> is perpendicular to the magnetic field. The
       steam of particles is sent in on the left and (initially) the particles velocities are
@@ -56,7 +56,7 @@
       For particles moving at a speed other than <em>v&#773;</em> there must be a net force
       hence they are deflected thus filtered out from the particle stream. Solving the described equation
       yields that the critical speed is <em>v&#773; = E/B</em> (<em>B</em> and <em>E</em> are the magnitudes of the magnetic
-      and electric fields respectively and the full equation is known as the Wien Condition
+      and electric fields respectively. The full equation is known as the Wien Condition
       <a target="_blank" href="https://books.google.de/books?id=oQccAseXmtcC&lpg=PA3&ots=3vr3qyEYs-&dq=cycloide%20wien%20filter&pg=PA2#v=onepage&q=cycloide%20wien%20filter&f=false">
         [see here]</a>).
       <a href="https://www.didaktik.physik.uni-muenchen.de/elektronenbahnen/en/b-feld/anwendung/geschwindigkeitsfilter.php">
@@ -65,7 +65,7 @@
     </p>
     <p>
       As previously stated this is the explanation you will likely find right away
-      when researching the topic. At first glance it seams reasonable and when I was
+      when researching the topic. At first glance it seems reasonable and when I was
       introduced to the problem (in High school) I was satisfied with this.
       But recently my attention was drawn back to the problem and I realized that this
       explanation is deeply floored.
@@ -74,13 +74,13 @@
       style="margin-right: 10px;" />
     <p>
       In fact the explanation is only valid for the very first moment. This is easy to
-      understand when looking at edge cases. Suppose the particle placed in the filter has no
+      understand when considering edge cases. Suppose the particle placed in the filter has no
       initial velocity (it is <em>0</em>). At first, it won't be affected by the magnetic field. So the only
       force acting on the particle will be the eclectic force. According to the explanation given
       above this will cause the particle to move on a vertical line. Here is the problem though,
       moving on a vertical line means that the velocity is non-zero and the magnetic force has
       to be consider. This magnetic force will be perpendicular to the magnetic field and
-      the velocity, hence the particle velocity will be in the plane drawn on the left and can
+      the velocity, hence the particles velocity will be in the plane drawn on the left and can
       be described using two coordinates <em>⇒ ⃗v := (v<sub>x</sub>, v<sub>y</sub>, 0)<sup>T</sup></em>.
       As there is no way the particle will ever leaf the xy-plain, the z components of velocity and
       position are just <em>0</em>. To simplify the equations the z components will be
@@ -104,10 +104,10 @@
       This can be solved using the
       <a href="https://en.wikipedia.org/wiki/Matrix_exponential">matrix-exponential</a>
       <em>e<sup>At</sup></em> (Note: <em>e<sup>At</sup> = ℒ<sub>s</sub><sup>-1</sup>{(sI - A)<sup>-1</sup>}</em>
-      were <em>ℒ<sub>s</sub><sup>-1</sup></em> is the inverse
+      where <em>ℒ<sub>s</sub><sup>-1</sup></em> is the inverse
       <a href="https://en.wikipedia.org/wiki/Laplace_transform">Laplace Transform</a> with respect to <em>s</em>, and
       <em>I</em> represents a 2⨯2 identity matrix). Multiplying both sides with <em>e<sup>At</sup></em> applying
-      the product rule, integrating both sides and solving for <em>⃗v</em> show that a general solution is:
+      the product rule, integrating and solving for <em>⃗v</em> show that a general solution is:
     </p>
     <img src="general-sol.svg" alt="$$\vec{v}(t) = e^{-At} (A^{-1} e^{At} \vec{b} + \vec{c}) =
                                       \left( \begin{matrix}
@@ -135,7 +135,7 @@
     <img src="trajectroy-plot-initial.svg" width="500px" align="right"/>
     <p>
       Let's considerer an electric field <em>E</em> of <em>30kV/m</em>,
-      a magnetic field <em>M</em> of <em>300mT</em>,
+      a magnetic field <em>B</em> of <em>300mT</em>,
       and an electron (mass <em>m = 9.109 10<sup>-31</sup>kg</em>,
       charge <em>q = -1.602 10<sup>-19</sup>C</em>). If the initial conditions
       <em>x<sub>0</sub></em>, <em>y<sub>0</sub></em> and <em>u<sub>y</sub></em> are
@@ -188,7 +188,7 @@
       Similarly, the trajectory for <em>u<sub>x</sub> = 5v&#773;</em> is a
       a prolate trochoid. The animation on the left rolls a small circle on
       a straight line, than traces a fixed point on the circle but outside its
-      boundary to construct the particle trajectory.
+      boundary to construct the particles trajectory.
     </p>
     <p>
       Trochoids are a superposition of linear and circular motion. Electric fields
@@ -207,7 +207,7 @@
     <p>
       Looking at the trajectories above shows that there are times when the electron moves
       on a horizontal line. If the Electromagnetic fields where switched of/ended exactly
-      at a maximum y value (witch happens to be the time when it is momentarily
+      at a maximum y value (which happens to be the time when it is momentarily
       moving on a horizontal line) the electron would keep flying in the horizontal
       direction and be a part of the filtered particle stream. Fortunately times
       when the electron moves horizontally are quite rare.
@@ -215,13 +215,13 @@
       deflected by more than <em>±5°</em> to be successfully sorted out. Sticking to the
       example from above the angle <em>&alpha; = arg{v<sub>x</sub> + iv<sub>y</sub>}</em>,
       which corresponds to the slope of the tangent line to the trajectory, can
-      be plotted against time (see the solid line (and the left y-axis) in the plot on the
+      be plotted over time (see the solid line (and the left y-axis) in the plot on the
       left or the animation below). The <em>±5°</em> range and the curves
-      intersections with it's boundary's
+      intersections with its boundary's
       have been marked in the plot. This clearly shows that the
       middle <em>u<sub>x</sub> = v&#773;</em> curve is always in the <em>±5°</em> range.
       On the other hand, for <em>u<sub>x</sub></em> other than <em>v&#773;</em> there are only
-      small time intervals in which particles are moving horizontally. At some point
+      short time intervals in which particles are moving horizontally. At some point
       the EM fields will end because the filter has a finite size (this assumption may
       not be very close to reality because real magnetic fields decrease in strength but don't have a clear
       boundary)
@@ -236,14 +236,14 @@
       would not be a problem if the particles were moving at <em>v&#773;</em>
       whenever they moved horizontally (so if the setup accelerated them to the desired speed).
       To see if this is so the
-      plot on the left and the animation below show a dashed line which represents the magnitude of the particles
+      plot on the left and the animation below show a dashed line representing the magnitude of the particles
       velocities (and corresponds to the right y-axis). Unfortunately the plots clearly show that the electrons
       do not simultaneously move on a horizontal line and at <em>v&#773;</em>.
       So the output particle stream cannot be expected to consist only of particles
       moving at <em>v&#773;</em> instead all velocities are to be expected (assuming that
       the input stream also contained particles moving at all possible velocities),
-      but there will be significantly viewer particles moving at undesired speeds
-      than at the desired speed <em>v&#773;</em>.
+      but there will be significantly less particles moving at undesired speeds
+      than at the desired speed <em>v&#773;</em> in the output stream.
     </p>
     <center>
       <video width="95%" autoplay loop>
@@ -284,10 +284,9 @@
         This assumes that the EM field will just end at some point. (Note that
         a real EM-field will decrease in strength and become less homogeneous
         before it is too weak to have any effect. So it doesn't actually have a boundary
-        at which it could &quot;end&quot;)
+        to &quot;end&quot; at)
       </li>
     </ul>
-
 
 </body>
 </html>

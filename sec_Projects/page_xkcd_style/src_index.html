@@ -2,7 +2,7 @@
 <head>
   <title>XKCD Style Image Transformation - Jake</title>
 
-  <meta name="author" content="Jochen K. Illerhas (called JakeI)" />
+  <meta name="author" content="Jochen K. Illerhaus (called JakeI)" />
   <meta name="keywords" content="Blog, JavaScript, Computer Science, Machine Learning" />
   <meta name="description" content="My personal webpage" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +19,7 @@
       much easier to draw straight lines with precise edges and a very clean look.
       Unfortunately this could signal a kind of confidence in whatever is represented you
       might not actually have. So in some cases it can be beneficial to
-      use less precise visuals suggesting some uncertainty about them. This usually results
+      use less precise visuals suggesting some uncertainty. This usually results
       in a style well known from <a href="https://xkcd.com/356/">xkcd.com</a> where Randall
       Munroe (author of "what if?") presents nerdy topics using a ruff hand drawn look.
       (Notice that there are many precedents for this. For example:
@@ -52,7 +52,7 @@
       </li>
       <li>
         Choose a Displacement Map <b>D</b> which is a function R<sup>2</sup> &rarr; R<sup>2</sup>
-        (a reasonable function to chose will be discussed below)
+        (a reasonable function to choose will be discussed below)
       </li>
       <li>
         Get the Output Image <b>O</b> as the composite function of Displacement Map <b>D</b> and Input Image <b>I</b>:
@@ -66,8 +66,8 @@
     </video>
 
     <p>
-      This is quite a simple setup, that depends on choosing a good
-      Displacement Map <b>D</b>. Obviously, the Euclidian Norm of <b>D</b> shouldn't exceed a set small value,
+      This is quite a simple setup that depends on choosing a good
+      Displacement Map <b>D</b>. Obviously, the Euclidian Norm of <b>D</b> shouldn't exceed some small value,
       otherwise elements of the input image would end up scattered over the entire output image.
       But the direction remains to be decided. I tried drawing randomly from a uniform distribution.
       But such directions look far too messy. Then I tried to give it a more natural look by drawing form a
@@ -105,14 +105,14 @@
 
     <p>
       Where <em>&lambda;</em> is constant (0.2 in the animation on the right, with the x and y coordinates
-      reaching from 0 to 1), and <em>t</em> is an indicator of the maximum length the displacement vector can be
-      (Note that <em>t</em> isn't exacly this max value). In the animation <em>t</em> increases from
+      reaching from 0 to 1), and <em>t</em> is an indicator of the maximum length displacement vectors can have
+      (Note that <em>t</em> isn't exactly this max value). In the animation <em>t</em> increases from
       0 to 5% over time.
     </p>
 
     <p>
       Looking at the final equation the similarities to e.g. a field of
-      normal vectors on moving water are quite obvious (a wave at specific point in time,
+      normal vectors on moving water are quite obvious (a wave at a specific point in time,
       weirdly using the L1 metric rather than L2).
       So the result can be thought of as an approximation of what you would see if the
       input image lay on the floor of a lake and you were looking through the lakes surface
@@ -121,7 +121,7 @@
 
     <p>
       Unfortunately, this is far from perfect and
-      it certainly isn't what matplotlib dose. Here is a list of
+      it certainly isn't what matplotlib does. Here is a list of
       the methods main floors:
     </p>
 
@@ -132,7 +132,7 @@
         result after it has been transformed.
       </li>
       <li>
-        Thick constant width lines in the input end up having a unnatural looking non constant width.
+        Thick constant width lines in the input end up with an unnatural looking non constant width.
         I would assume, that matplotlib bypasses the problem, by applying the xkcd effect to the lines location
         not it's width, (easy to do if you are working with vector graphics, impossible with my pixel graphics).
       </li>
