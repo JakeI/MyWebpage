@@ -1,0 +1,39 @@
+@import "default.css";
+
+/* Menu Bar */
+
+.menu {
+    width: 99%;
+}
+
+/* Main Part */
+
+.main {
+      width: 99%;
+}
+
+
+/* Table of Contents */
+
+.contents {
+    float: none;
+    width: 100%;
+    margin-right: 0;
+    margin-top: 5px;
+    margin-bottom: 0;
+
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/* Main Page */
+
+.page {
+    margin-left: 0;
+}
+
+/* Fotter */
+
+.footer {
+      width: 99%;
+}

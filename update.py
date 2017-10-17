@@ -29,6 +29,10 @@ def arange(path, prefix, elements, get_func):
         pass
 
 def main():
+
+    with open("standard_header.html", 'r') as sh:
+        standard_header = sh.read()
+
     folders = get_all_folders(".", "sec_")
     print("Found a totel of %d folders of type 'sec_'" % len(folders))
     for f in folders:
@@ -54,6 +58,8 @@ def main():
                 bs = bs4.BeautifulSoup(source.read(), "lxml")
                 current_head = bs.find('head').prettify('ascii', formatter='html').decode('utf-8', 'xmlcharrefreplace')
                 current_head = current_head[current_head.find('>')+1:current_head.rfind('<')]
+                current_head = current_head.replace("<!-- Default Header -->", standard_header)
+
                 current_body = bs.find('body').prettify('ascii', formatter='html').decode('utf-8', 'xmlcharrefreplace')
                 current_body = current_body[current_body.find('>')+1:current_body.rfind('<')]
 

@@ -144,11 +144,13 @@ function initAllBuffers() {
 	gl.bindBuffer(gl.ARRAY_BUFFER, null);
 }
 
+var canvas;
+
 function start() {
 	command_line = document.getElementById("command-line");
 	command_text = document.getElementById("command-text");
 
-	var canvas = document.getElementById("myCanvas");
+	canvas = document.getElementById("myCanvas");
 	gl = initWebGL(canvas);
 	if(!gl) return;
 	width = canvas.width;
@@ -160,17 +162,21 @@ function start() {
 	increment(0);
 	lastUpdate = new Date();
 	setInterval(update, 10);
-
-	//alert("start finished sucsessfully");
 }
 
 var lastUpdate;
+var updating = false;
 
 function update() {
+	if(updating) return;
+	if(document[hidden]) return;
+	updating = true;
 	render();
 	var now = new Date();
-	increment((now-lastUpdate)/1000.0);
+	var dt = (now-lastUpdate)/1000.0;
+	increment(dt > 0.02 ? 0.02 : dt);
 	lastUpdate = now;
+	updating = false;
 }
 
 //state
@@ -191,13 +197,15 @@ const defaultConsts = {
 			 };
 var consts = defaultConsts;
 const defaultColors = [
+	              [1.0, 0.0, 0.0, 1.0],
 	              [0.0, 1.0, 0.0, 1.0],
 	              [0.0, 0.0, 1.0, 1.0],
-	              [1.0, 1.0, 0.0, 1.0],
 	              [0.0, 1.0, 1.0, 1.0],
               ];
 var colors = defaultColors;
 var buffers = [];
+
+const maxTraceLenth = 150;
 
 function copy(a) {
 	var i = a.length-1;
@@ -235,10 +243,12 @@ function multi(c, s) {
 	return t;
 }
 
+const delta = 0.0005;
+
 function increment(dt) {
 	phi += 0.1*dt;
 
-	const delta = 0.000005;
+	//const delta = 0.000005;
 	var steps = dt/delta;
 
 	for(var n = 0; n < steps; n++){
@@ -297,18 +307,6 @@ function mprime(i, j) { // that might be wrong
 	}
 }
 
-function ddA(state) {
-	return (consts.g*(consts.m[0]+consts.m[1])*Math.cos(state[0][0]) +
-			consts.m[1]*consts.l[1]*J(state[0][0], state[1]))/
-			(-(consts.m[0]+consts.m[1])*consts.l[1]);
-}
-
-function ddB(state) {
-	return (consts.g*consts.m[1]*Math.cos(state[1][0]) +
-			consts.m[1]*consts.l[0]*J(state[1][0], state[0]))/
-			(-consts.m[1]*consts.l[1]);
-}
-
 function J(a,b) {
 	var ab = a-b[0];
 	return Math.cos(ab)*b[2]+Math.sin(ab)*b[1]*b[1];
@@ -322,8 +320,10 @@ function render() {
 	gl.enableVertexAttribArray(stdPos);
 
 	renderPoints(true);
-	renderAllPendulums();
-	renderAllVilocitys();
+	if(true)
+		renderAllPendulums();
+	if(true)
+		renderAllVilocitys();
 
 	gl.disableVertexAttribArray(stdPos);
 	gl.useProgram(null);
@@ -400,12 +400,17 @@ function renderPoints(do_render) {
 			y += consts.l[i]*Math.sin(state[i][0]);
 			buffers[i].data.push(x);
 			buffers[i].data.push(y);
+
+			if(buffers[i].data.length > maxTraceLenth) {
+				buffers[i].data = buffers[i].data.slice(2);
+			}
+
 			buffers[i].capacity = buffers[i].data.length;
 			buffers[i].length = buffers[i].data.length;
 
-      if(do_render)
-			   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(buffers[i].data), gl.DYNAMIC_DRAW);
-			// use gl.bufferSubData !!
+      		if(do_render)
+			   	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(buffers[i].data), gl.DYNAMIC_DRAW);
+				// use gl.bufferSubData !!
 		}
     if(do_render) {
   		gl.vertexAttribPointer(stdPos, 2, gl.FLOAT, false, 0, 0);
@@ -415,4 +420,13 @@ function renderPoints(do_render) {
   		gl.drawArrays(gl.POINTS, 0, buffers[i].length/2);
     }
 	}
+}
+
+var hidden;
+if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support
+	hidden = "hidden";
+} else if (typeof document.msHidden !== "undefined") {
+	hidden = "msHidden";
+} else if (typeof document.webkitHidden !== "undefined") {
+	hidden = "webkitHidden";
 }

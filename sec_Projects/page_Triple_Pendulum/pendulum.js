@@ -144,11 +144,13 @@ function initAllBuffers() {
 	gl.bindBuffer(gl.ARRAY_BUFFER, null);
 }
 
+var canvas;
+
 function start() {
 	command_line = document.getElementById("command-line");
 	command_text = document.getElementById("command-text");
 
-	var canvas = document.getElementById("myCanvas");
+	canvas = document.getElementById("myCanvas");
 	gl = initWebGL(canvas);
 	if(!gl) return;
 	width = canvas.width;
@@ -165,12 +167,19 @@ function start() {
 }
 
 var lastUpdate;
+var updating = false;
 
 function update() {
+	if(updating) return;
+	if(!isElementInViewport(canvas)) return;
+	if(document[hidden]) return;
+	updating = true;
 	render();
 	var now = new Date();
-	increment((now-lastUpdate)/1000.0);
+	var dt = (now-lastUpdate)/1000.0;
+	increment(dt > 0.02 ? 0.02 : dt);
 	lastUpdate = now;
+	updating = false;
 }
 
 //state
@@ -198,6 +207,8 @@ const defaultColors = [
               ];
 var colors = defaultColors;
 var buffers = [];
+
+const maxTraceLenth = 150;
 
 function copy(a) {
 	var i = a.length-1;
@@ -235,10 +246,12 @@ function multi(c, s) {
 	return t;
 }
 
+const delta = 0.0005;
+
 function increment(dt) {
 	phi += 0.1*dt;
 
-	const delta = 0.000005;
+	//const delta = 0.000005;
 	var steps = dt/delta;
 
 	for(var n = 0; n < steps; n++){
@@ -307,6 +320,24 @@ function ddB(state) {
 	return (consts.g*consts.m[1]*Math.cos(state[1][0]) +
 			consts.m[1]*consts.l[0]*J(state[1][0], state[0]))/
 			(-consts.m[1]*consts.l[1]);
+}
+
+function energy() { // something is worng with that!!
+	// potential energy
+	var h = 0.0, pot = 0.0;
+	for (var i = 0; i < consts.n; i++) {
+		h -= consts.l[i]*Math.cos(state[i][0]);
+		pot += consts.m[i]*consts.g*h;
+	}
+
+	// kinetik energy
+	var dx = 0.0, dy = 0.0, kin = 0.0;
+	for (var i = 0; i < consts.n; i++) {
+		dx += consts.l[i]*Math.cos(state[i][0])*state[i][1];
+		dy -= consts.l[i]*Math.sin(state[i][0])*state[i][1];
+		kin += 0.5*consts.m[i]*(dx*dx+dy*dy);
+	}
+	return pot + kin;
 }
 
 function J(a,b) {
@@ -402,12 +433,17 @@ function renderPoints(do_render) {
 			y += consts.l[i]*Math.sin(state[i][0]);
 			buffers[i].data.push(x);
 			buffers[i].data.push(y);
+
+			if(buffers[i].data.length > maxTraceLenth) {
+				buffers[i].data = buffers[i].data.slice(2);
+			}
+
 			buffers[i].capacity = buffers[i].data.length;
 			buffers[i].length = buffers[i].data.length;
 
-      if(do_render)
-			   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(buffers[i].data), gl.DYNAMIC_DRAW);
-			// use gl.bufferSubData !!
+      		if(do_render)
+			   	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(buffers[i].data), gl.DYNAMIC_DRAW);
+				// use gl.bufferSubData !!
 		}
     if(do_render) {
   		gl.vertexAttribPointer(stdPos, 2, gl.FLOAT, false, 0, 0);
@@ -450,6 +486,7 @@ var help_str = `Set Simulation Parameters at runtime <br />
     <li>set mass 0 to 9</li>
     <li>set length 0 to 19</li>
     <li>set gravity to 7</li>
+	<li>set delta to 0.5</li>
     <li>set default</li>
   </ul>`;
 
@@ -457,8 +494,17 @@ function interpreteCommand(c) {
 	var flags = c.split(" ");
 	if(flags[0] == "set") {
 		interpreteSet(flags.slice(1, flags.length));
-  } else if(flags[0] == "help") {
-    printResult(help_str);
+	} else if(flags[0] == "help") {
+		printResult(help_str);
+	} else if(flags[0] == "get") {
+		if(flags.length <= 1) {
+			printError("Pleas spesify what to get get alone is insufficient");
+		}
+		if(flags[1] == "energy") {
+			printResult("Total energy = " + energy());
+		} else {
+			printError("Unknown get falag '" + flags[1] + "'");
+		}
 	} else {
 		printError("Unknown Syntax: '" + flags[0] + "'")
 	}
@@ -466,9 +512,9 @@ function interpreteCommand(c) {
 
 var setCommands = [ // TODO: use a hash map (name -> everyting_else)
                    	{
-          						name: "gravity",
-          						type: 0, // scalar
-          						setter: function (f) { consts.g = f; }
+  						name: "gravity",
+  						type: 0, // scalar
+  						setter: function (f) { consts.g = f; }
                    	},
                    	{
                    		name: "default",
@@ -509,6 +555,11 @@ var setCommands = [ // TODO: use a hash map (name -> everyting_else)
                    		max_id: function () { return consts.n-1; },
                    		setter: function (id, f) { consts.l[id] = f; }
                    	},
+					{
+								name: "delta",
+								type: 0, // scalar
+								setter: function (f) { delta = f / 1000; }
+					},
                    ];
 
 function interpreteSet(flags) {
@@ -573,4 +624,24 @@ function printError(s) {
 function printResult(s) {
 	command_text.innerHTML += "<span class=\"r\">" + s + "</span>";
   command_text.scrollTop = command_text.scrollHeight;
+}
+
+function isElementInViewport (el) {
+    var rect = el.getBoundingClientRect();
+
+    return (
+        rect.top >= -200 &&
+        rect.left >= -200 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)+200 && /*or $(window).height() */
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)+200 /*or $(window).width() */
+    );
+}
+
+var hidden;
+if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support
+	hidden = "hidden";
+} else if (typeof document.msHidden !== "undefined") {
+	hidden = "msHidden";
+} else if (typeof document.webkitHidden !== "undefined") {
+	hidden = "webkitHidden";
 }

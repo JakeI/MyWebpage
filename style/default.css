@@ -3,7 +3,7 @@
 /* General Styling */
 
 * {
-  font-family: 'Kalam', "Comic Sans MS", times;
+  font-family: 'Lora', serif;
 }
 
 html, body {
@@ -16,16 +16,17 @@ html, body {
 /* Menu Bar */
 
 .menu {
+  font-family: 'Kalam', "Comic Sans MS";
+
   background-color: black;
   color: white;
 
-  display: flex;
+  /*display: flex;*/
   align-items: center;
 
   border-radius: 10px 10px 5px 5px;
 
-  width: 1000px;
-  height: 40px;
+  /*height: 40px;*/
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
@@ -33,9 +34,14 @@ html, body {
 }
 
 .menu a, .menu .current-menu-entry {
+  font-family: 'Kalam', "Comic Sans MS";
+
   color: white;
   text-decoration: none;
   text-align: center;
+
+  display: inline-flex;
+  line-height: 200%;
 
   clear: both;
 
@@ -68,8 +74,6 @@ html, body {
 /* Main Part */
 
 .main {
-  width: 1000px;
-
   border-radius: 5px 5px 5px 5px;
 
   margin-left: auto;
@@ -81,21 +85,15 @@ html, body {
 /* Table of Contents */
 
 .contents {
-  float: left;
+  font-family: 'Kalam', "Comic Sans MS";
 
   background: black;
   color: white;
 
   border-radius: 5px 5px 5px 5px;
 
-  width: 20%;
   margin-left: 0;
-  margin-right: 5px;
-  margin-top: 0px;
-  margin-bottom: 0;
 
-  padding-left: 5px;
-  padding-right: 3px;
   padding-top: 0px;
   padding-bottom: 3px;
 }
@@ -110,6 +108,9 @@ html, body {
   margin-top: 3px;
   margin-bottom: 0;
 
+  padding-top: 5px;
+  padding-bottom: 2px;
+
   border-radius: 3px;
 }
 
@@ -119,6 +120,8 @@ html, body {
 }
 
 .contents h1 {
+  font-family: 'Kalam', "Comic Sans MS";
+
   color: darkorange;
   text-decoration: none;
   text-align: center;
@@ -190,7 +193,6 @@ html, body {
 
 .footer {
   border-radius: 5px 5px 10px 10px;
-  width: 1000px;
   height: 30px;
 
   display: flex;
