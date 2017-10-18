@@ -1,0 +1,86 @@
+canvas {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 20px;
+}
+
+input[type="checkbox"] {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+label {
+  display: inline-grid;
+  margin-right: 60px;
+}
+
+#visual-settings {
+  display: block;
+  text-align: center;
+}
+
+.hint-list {
+	margin-top: 0;
+	padding-top: 0;
+	font-size: 8pt;
+	padding-left: 15px;
+	list-style: none;
+}
+
+#command-text {
+  display:block;
+	width: 90%;
+  height: 200px;
+  overflow-y: auto;
+	background-color: darkgray;
+	color: white;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 3px;
+}
+
+#command-line {
+  display: block;
+	color: black;
+	font-family: monospace;
+	width: 90%;
+	margin-top: 5px;
+	border: none;
+	border-color: transparent;
+	outline: none;
+	background-color: darkgray;
+	border-radius: 3px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+span {
+	display: block;
+}
+
+.c {
+	dispaly: block;
+	color: blue;
+}
+
+.e {
+	dispaly: block;
+	color: red;
+	text-align: right;
+}
+
+.r {
+	dispaly: block;
+	color: green;
+	text-align: right;
+}
