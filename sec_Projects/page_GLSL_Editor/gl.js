@@ -1,5 +1,6 @@
 var gl, canvas, incrementer, param;
 var shader, locations = {}, posLocation;
+var vs = null, fs = null;
 var rect;
 var lastUpdate, updating = false;
 var hidden;
@@ -8,6 +9,9 @@ var vss, fss;
 function render(param) {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+    var burect = canvas.getBoundingClientRect();
+    gl.viewport(0.0, 0.0, burect.right - burect.left, burect.bottom - burect.top)
     
     gl.useProgram(shader);
     
@@ -42,13 +46,22 @@ function update() {
 }
 
 function recompile(vs_, fs_, param_, incrementer_) {
-    incrementer = incrementer_;
-    param = param_;
+    if (incrementer_ != null)
+        incrementer = incrementer_;
+    if (incrementer_ != null)
+        param = param_;
 
-    if (vs_ != null)
+    if (vs_ != null) {
+        vs = vs_;
         vss = getShader(gl, vs_, "vs");
-    if (fs_ != null)
+    } else if (vs != null)
+        vss = getShader(gl, vs, "vs");
+    if (fs_ != null) {
+        fs = fs_;
         fss = getShader(gl, fs_, "fs");
+    } else if (fs != null) {
+        fss = getShader(gl, fs, "fs"); 
+    }
     shader = initShader(vss, fss);
 
     gl.useProgram(shader);
@@ -65,15 +78,33 @@ function setup(canvas_, vs_, fs_, param_, incrementer_) {
     hidden = hiddenStr();
 
     canvas = canvas_;
-    gl = initWebGL(canvas_);
+
+    canvas.addEventListener("webglcontextlost", function(event) {
+        event.preventDefault();
+    }, false);
     
-    recompile(vs_, fs_, param_, incrementer_);
+    canvas.addEventListener(
+        "webglcontextrestored", function(event) {
+            internalSetUp();
+        }, false);
+    
+    vs = vs_;
+    fs = fs_;
+    param = param_;
+    incrementer = incrementer_;
+    internalSetUp();
+}
+
+function internalSetUp() {
+    gl = initWebGL(canvas);
+    
+    recompile(null, null, null, null);
 
     rect = initStaticBuffer([
         -1.0, 1.0,
         1.0, 1.0,
-		-1.0, -1.0,
-		1.0, -1.0
+        -1.0, -1.0,
+        1.0, -1.0
     ]);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
@@ -112,7 +143,7 @@ function getShader(gl, text, type_str) {
 
 function initShader(vertex, fragment){
 	var program = gl.createProgram();
-	gl.attachShader(program, vertex);
+    gl.attachShader(program, vertex);
 	gl.attachShader(program, fragment);
 	gl.linkProgram(program);
 	if(!gl.getProgramParameter(program, gl.LINK_STATUS))
@@ -161,11 +192,14 @@ function uniform(loc, val) {
     if (typeof val  === "number") {
         gl.uniform1f(loc, val);
         return;
+    } else if (loc == null) {
+        return;
     } else {
-        if ("length" in val) {
+        if (!(typeof val === "undefined") && "length" in val) {
             switch (val.length) {
                 case 2:
                     gl.uniform2f(loc, val[0], val[1]);
+                    //alert("uploading 2D vector loc=" + loc + " val_0=" + val[0] + " val_1=" + val[1]);
                     return;
                 case 3:
                     gl.uniform3f(loc, val[0], val[1],  val[2]);
