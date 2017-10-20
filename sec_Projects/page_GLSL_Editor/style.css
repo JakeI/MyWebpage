@@ -1,0 +1,101 @@
+#editor { 
+    position: relative !important;
+    margin: auto;
+    height: 200px;
+    width: 95%;
+}
+
+#editor, #editor * { 
+    font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;;
+    font-size: 12pt;
+}
+
+.button {
+    display: inline-block;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.button:hover {
+    color: darkorange;
+}
+
+#myCanvas {
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto; 
+    border-radius: 20px;
+}
+
+#tools {
+    margin-top: 40px; 
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
+
+#time-range {
+    width: 45%;
+}
+
+.button {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.button .tooltip {
+    visibility: hidden;
+    width: 300px;
+    background-color: black;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    position: absolute;
+    z-index: 10;
+}
+
+.button:hover .tooltip {
+    visibility: visible;
+}
+
+.dropbtn {
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    color: darkorange;
+}
+
+.dropdown {
+    display: inline-block;
+    float: right;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 160px;
+    text-align: right;
+    margin-left: -60px;
+
+    z-index: 2;
+}
+
+.dropdown-content span {
+    color: black;
+    padding: 6px 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content span:hover {background-color: #f1f1f1}
+
+.show {display:block;} 
