@@ -136,6 +136,129 @@ vec4 color(float x, float y, float t, vec2 res, vec2 mouse) {
     return col;
 }
 
+`,
+    Stars:
+`
+
+
+const vec4 black = vec4(0.0, 0.0, 0.0, 1.0);
+const vec4 white = vec4(1.0, 1.0, 1.0, 1.0);
+const vec4 red   = vec4(1.0, 0.0, 0.0, 1.0);
+const vec4 green = vec4(0.0, 1.0, 0.0, 1.0);
+
+float triangle(float x, float y) {
+    return step(y, 1.0 - x)*step(y, 1.0 + x)*step(-y, 0.0);
+}
+
+vec4 color(float x, float y, float t, vec2 res, vec2 mouse) {
+    
+    float resmin = min(res.x, res.y);
+    float X = x*res.x/resmin;
+    float Y = y*res.y/resmin;
+    
+    if ((pow(X-(2.0 * mouse.x / res.x - 1.0), 2.0) + 
+            pow(Y-(1.0 - 2.0 * mouse.y / res.y), 2.0)) < 0.5) {
+        x = x*0.5;
+        y = y*0.5;
+    }
+    
+    float col = floor(x*4.0);
+    float row = floor(y*4.0);
+    
+    x = 2.0*mod(x*4.0,1.0)-1.0;
+    y = 2.0*mod(y*4.0,1.0)-1.0;
+    
+    x = x*res.x/resmin;
+    y = y*res.y/resmin;
+    
+    x = x*1.3;
+    y = y*1.3;
+    
+    vec4 color = mix(red, green, mod(col, 2.0));
+    
+    float star = 1.0 - ((1.0-triangle(x, y+0.33))*
+                        (1.0-triangle(x, 0.33-y)));
+                        
+    vec4 starcol = mix(white, black, mod(row+col, 2.0));
+    
+    color = mix(color, starcol, star);
+    
+    return color;
+}
+`,
+    Clock:
+`
+
+const vec4 black = vec4(0.0, 0.0, 0.0, 1.0);
+const vec4 green = vec4(0.0, 1.0, 0.0, 1.0);
+
+float paral(float x, float y) {
+    return step(-y, 0.1)*step(y, 0.9)*
+           step(x, 0.0)*step(-x, 0.1)*
+           step(0.1-x, y)*step(y, 0.9+x);
+}
+
+float diamand(float x, float y) {
+    return step(y, 0.05)*step(-y, 0.05)*
+           step(-x, -0.1)*step(x, 0.8)*
+           step(x-0.8, y)*step(y, 0.8-x)*
+           step(y, x-0.1)*step(0.1-x, y);
+}
+
+float seg(float x, float y,
+          float a, float b, float c, float d,
+          float e, float f, float g) {
+    return paral(0.95-y, x+0.05)*a+
+           paral(0.9-x, y)*b+paral(0.9-x, -y)*c+
+           paral(y+0.95, x+0.05)*d+
+           paral(x, -y)*e+paral(x, y)*f+
+           diamand(x, y)*g;
+}
+
+float num(float x, float y, int n){
+         if(n == 0) return seg(x,y, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0);
+    else if(n == 1) return seg(x,y, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0);
+    else if(n == 2) return seg(x,y, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0);
+    else if(n == 3) return seg(x,y, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0);
+    else if(n == 4) return seg(x,y, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0);
+    else if(n == 5) return seg(x,y, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0);
+    else if(n == 6) return seg(x,y, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+    else if(n == 7) return seg(x,y, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0);
+    else if(n == 8) return seg(x,y, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+    else if(n == 9) return seg(x,y, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0);
+    return seg(x,y, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0);
+}
+
+float num(float x, float y, float t, float r) {
+    int i = int(floor(mod(r*t, 10.0)));
+    float a = num(x, y, i);
+    float b = num(x, y, (i == 9 ? -1 : i)+1);
+    return mix(a, b, pow(mod(r*t, 1.0), 3.0));
+}
+
+float point(float x, float y) {
+    return step(-x, 0.05)*step(x, 0.05)*
+           step(-y, 0.05)*step(y, 0.05);
+}
+
+vec4 color(float x, float y, float t, vec2 res, vec2 mouse) {
+    
+    float resmin = min(res.x, res.y);
+    x = x*res.x/resmin;
+    y = y*res.y/resmin;
+    
+    x = 1.8*x + 0.2;
+    y = 1.8*y;
+    
+    vec4 col = black;
+    
+    col = mix(col, green, num(x+1.7, y, t, 0.1));
+    col = mix(col, green, num(x+0.3, y, t, 1.0));
+    col = mix(col, green, point(x-0.9, y+1.0));
+    col = mix(col, green, num(x-1.2, y, t, 10.0));
+    
+    return col;
+}
 `
 };
 
