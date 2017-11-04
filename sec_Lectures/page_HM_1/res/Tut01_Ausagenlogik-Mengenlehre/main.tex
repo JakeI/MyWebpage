@@ -1,0 +1,111 @@
+\documentclass{beamer}
+ 
+\usepackage[utf8]{inputenc}
+ 
+\title{HM1 - Tut 01 - Aussagenlogik und Mengenlehre}
+\author{Jochen Illerhaus}
+\institute{KIT}
+\date{24.10.17}
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+ 
+\begin{frame}
+    \frametitle{Allgemeines}
+    \begin{itemize}
+        \item Siehe Webseite \url{https://goo.gl/isqjdv}
+        \item URL steht sonnst nirgends.
+        \item Nächste Wochen (31.10.17) keine Tutorium.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Fragen}
+    
+    \huge Gibt es Fragen?
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Aussagenlogik}
+     \begin{itemize}
+        \item Erster Kontakt mit "Echter Mathematik"
+        \item Hier ein Extrembeispiel:
+            \begin{itemize}
+                \item \textbf{Def} Schul-Mathematik $S$: Menge der in der Schule Benutzten Methoden.
+                \item \textbf{Def} Universitäts-Mathematik $U$: Menge der an Universitäten Benutzten Methoden.
+                \item \textbf{Thm} $\forall S, U: S \cap U \approx \emptyset$
+                \item \textbf{Proof} omitted
+            \end{itemize}
+        \item Ist "mathematisch" für: "Schule und Uni unterscheiden sich"
+        \item Das ist aber trotzdem sinfoll!!!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Aussagenlogik}
+    \begin{itemize}
+        \item Darstellung von Wahr/Falsch ($w$/$f$) Fragen als Kleinbuchstaben:
+        \item 
+            \begin{center}
+                \begin{tabular}{c c | c | c | c}
+                    $p$ & $q$ & $p \wedge q$ & $p \vee q$ & $\neg p$ \\
+                    \hline
+                    $f$ & $f$ & $f$ & $f$ & $w$  \\
+                    $f$ & $w$ & $f$ & $w$ & $w$  \\
+                    $w$ & $f$ & $f$ & $w$ & $f$  \\
+                    $w$ & $w$ & $w$ & $w$ & $f$  \\
+                \end{tabular}
+            \end{center}
+        \item Siehe Außerdem $p \Rightarrow q$, $p \Leftrightarrow q$ und De Morgansche Gesetze.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Aufgabe 1 und 2}
+    Negieren Sie folgende Aussagen:\\
+    \textbf{1c)} Wenn morgen schönes Wetter ist, gehen alle Studierenden in den Schlossgarten.\\
+    \textbf{1d)} Es gibt einen Menschen, dem Mathematik keinen Spaß macht.\\
+    \vspace{1cm}
+    \textbf{2)} Betrachten Sie die beiden Aussagen $K$: ”Peter hat kein Kind“ und $T$: ”Peter hat keine Tochter“. Was lässt sich über die Aussagen $K \Leftarrow T$ bzw. $T \Leftarrow K$ sagen?
+\end{frame}
+
+\begin{frame}
+    \frametitle{Mengenlehre}
+    \begin{itemize}
+        \item Erweiterung der Aussagenlogik für viele Aussagen.
+        \item Später Allgemeiner Umgang mit (unendlich) vielen mathematischen Objekten.
+    \end{itemize}
+    \begin{figure}
+    	\centering
+    	\def\svgwidth{\columnwidth}
+        \input{Mengen.pdf_tex}
+    	\label{fig:kkk}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Aufgabe 3}
+    Fur jedes $j \in \mathbb{N}$ sei die Menge
+    \[
+    S_j := \{ x : x \text{ studiert in Karlsruhe und ist im $j$-ten Hochschulsemester} \}
+    \]
+    gegeben. Weiter seien $E$, $P$ bzw. $G$ die Mengen der Elektrotechnik-, Physik- bzw. Geodäsie Studierenden
+    in Karlsruhe. Drucken Sie folgende Mengen mittels $S_j$
+    , $E$, $P$ und $G$ aus:\\
+    \textbf{a)} Die Menge all derer, die in Karlsruhe im ersten Hochschulsemester sind und Physik
+    studieren.\\
+    \textbf{b)} Die Menge aller Karlsruher Studierenden, die im ersten oder dritten Hochschulsemester
+    sind, aber nicht Elektrotechnik studieren.\\
+    \textbf{c)} Die Menge aller Studierenden in Karlsruhe.\\
+\end{frame}
+ 
+\begin{frame}
+    \frametitle{Fragen}
+    
+    \huge Gibt es Fragen?
+    
+\end{frame}
+ 
+\end{document}

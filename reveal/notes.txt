@@ -1,0 +1,8 @@
+Test with:
+
+jupyter nbconvert THE_FILE_NAME.ipynb --to slides --post serve
+
+
+Publish with:
+
+jupyter nbconvert Tut03.ipynb --to slides --reveal-prefix ./../../../../reveal --SlidesExporter.reveal_theme=white
