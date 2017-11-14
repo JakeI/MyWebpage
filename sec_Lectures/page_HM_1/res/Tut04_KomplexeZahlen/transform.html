@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Transform</title>
+        <script src="../../../../Snap.svg-0.5.1/dist/snap.svg-min.js"></script>
+    </head>
+    <body>
+        <input id="grid" name="grid-check" checked type="checkbox" onchange="showGrid();" />
+        <label for="grid-check">grid</label>
+        <label style="margin-left: 30px;" for="time-slide">Time:</label>
+        <input id="slide" name="time-slide" type="range" min="-1" max="101" value="0" 
+            onchange="setT(document.getElementById('slide').value/100);"
+            style="display:inline-block;margin-left:auto;margin-right:auto;" />
+        <label style="margin-left: 30px;" for="speed-slide">Speed:</label>
+        <input id="speed" name="speed-slide" type="range" min="-1" max="99" value="50"
+            onchange="setStep(document.getElementById('speed').value/10000);" 
+            style="display:inline-block;margin-left:auto;margin-right:auto;" /> 
+        <span style="margin-left: 30px;" id="tt">t = 00%</span>
+        <br />
+        <div style="position: fixed; top: 40px; bottom: 10px; left: 10px; right: 10px;">
+        <svg id="svg" style="display:block; margin-left:auto; margin-right: auto" 
+                height="100%" viewbox="0 0 400 400">
+            <marker orient="auto" refY="0" refX="0" id="marker_arrow"
+                style="overflow:visible">
+               <path
+                  id="marker_arrow_path"
+                  d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+                  style="fill:#000000;stroke:#000000;stroke-width:0.01"
+                  transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+             </marker>
+            <g id="all" transform="matrix(127, 0, 0, -127, 195, 195)">
+                <path id="arrow_up" d="m 0,-1.5, 0,3"
+                    style="stroke:#000000;stroke-width:0.02;marker-end:url(#marker_arrow)" />
+                <path id="arrow_right" d="m -1.5,0, 3,0"
+                    style="stroke:#000000;stroke-width:0.02;marker-end:url(#marker_arrow)" />
+                <g id="cross">
+                    <path id="cross_up_stroke" d="m 0,-0.05, 0,0.1"
+                        style="stroke-width:0.01;" />
+                    <path id="cross_left_stroke" d="m -0.05,0 0.1,0"
+                        style="stroke-width:0.01;" />
+                </g>
+                <path class="li" id="line" style="fill:none;stroke-width:0.01;stroke-opacity:0.75;"></path>
+                <path class="tr" id="trace" style="fill:none;stroke-width:0.005;stroke-opacity:0.75;"></path>
+            </g>
+        </svg>
+        </div>
+        <script>
+            function rez3(x, y, t) { // Re(z^3)
+                return mix(x*x*x-3*x*y*y, x, t);
+            }
+            function imz3(x, y, t) { // Im(z^3)
+                return mix(3*x*x*y-y*y*y, y, t);
+            }
+
+            function rez3frac(x, y, t) { // Re(z^3)
+                var bn = Math.pow(3, t);
+                return Math.pow(Math.sqrt(x*x+y*y), bn)*Math.cos(bn*Math.atan2(y, x));
+            }
+            function imz3frac(x, y, t) { // Im(z^3)
+                var bn = Math.pow(3, t);
+                return Math.pow(Math.sqrt(x*x+y*y), bn)*Math.sin(bn*Math.atan2(y, x));
+            }
+
+            var func_x = rez3frac;
+            var func_y = imz3frac;
+
+            var rows = 5, cols = 5;
+            var trace_steps = 50;
+
+            var s = Snap("#svg");
+            var cross = s.select("#cross");
+            var line = s.select("#line");
+            var trace = s.select("#trace");
+            var crosses = [];
+            var lines = [];
+            var traces = [];
+            function showGrid() {
+                var v = document.getElementById("grid").checked ? "visible" : "hidden";
+                for(var i = 0; i < lines.length; i++) {
+                    lines[i].l.attr({visibility:v});
+                }
+            }
+            function translate(c, x, y) {
+                c.transform(Snap.format("translate({x}, {y})", {x: x, y: y }));
+            }
+            function addTrace(x, y, col) {
+                var tr = trace.clone();
+                var dt = 1/trace_steps;
+                var d = [];
+                for(var i = 0; i <= trace_steps; i++) {
+                    var t = dt*i;
+                    d.push(func_x(x, y, t), func_y(x, y, t));    
+                }
+                tr.attr({style: tr.attr("style")+"stroke:"+col+";"});
+                traces.push({tr:tr, d:d});              
+            }
+            function addCross(x, y, col) {
+                var c = cross.clone();
+                translate(c, x, y);
+                var paths = c.selectAll("path");
+                for(var i = 0; i < paths.length; i++)
+                    paths[i].attr({style: paths[i].attr("style")+"stroke:"+col+";"});
+                crosses.push({c:c, x:x, y:y});
+            }
+            function addLine(x, y, dx, dy, steps, col) {
+                var length = Math.sqrt(dx*dx + dy*dy);
+                dx /= length;
+                dy /= length;
+                var dt = length/steps;
+                var d = []
+                for(var i = 0; i <= steps; i++) {
+                    d.push(x+i*dt*dx, y+i*dt*dy);
+                }
+                var l = line.clone();
+                l.attr({d:"M "+d.join(" "), style: l.attr("style")+"stroke:"+col+";"});
+                lines.push({l:l, d:d});
+            }
+            var phi = [Math.PI/3, Math.PI, -Math.PI/3];
+            var colors = ["#ff0000", "#00ff00", "#0000ff"];
+            for(var i = 0; i < phi.length; i++) {
+                var x = Math.cos(phi[i]);
+                var y = Math.sin(phi[i]);
+                addCross(x, y, colors[i]);
+                addTrace(x, y, colors[i]);
+            }
+            /*for(var col = 0; col < cols; col++)
+                for(var row = 0; row < rows; row++) {
+                    var x = (2/(cols-1))*col - 1;
+                    var y = (2/(rows-1))*row - 1;
+                    addCross(x, y, "#00ff00");
+                }*/
+            for(var col = 0; col < cols; col++) {
+                var x = (2/(cols-1))*col - 1;
+                addLine(x, -1, 0, 2, 50, "#666");
+            }
+            for(var row = 0; row < rows; row++) {
+                var y = (2/(rows-1))*row - 1;
+                addLine(-1, y, 2, 0, 50, "#666");
+            }
+            
+            cross.remove();
+            line.remove();
+            trace.remove();
+            
+            var T = 0;
+            var t = 0;
+            function setT(t) {
+                T = t;
+            }
+
+            function setStep(s) {
+                step = s;
+            }
+
+            function eq(a, b, e) {
+                return a+e > b && a-e < b;
+            }
+
+            var running = false;
+            var step = 0.01;
+            setInterval(function() {
+                if(running) return;
+                running = true;
+                
+                if (!eq(t, T, step)) {
+                    if (t<T) t += step;
+                    else t -= step;
+                    update(t);
+                }
+
+                running = false;
+            }, 30);
+
+            function mix(a, b, t) {
+                return a*t + b*(1-t);
+            }
+
+            function update(t) {
+                for(var i = 0; i < crosses.length; i++) {
+                    var c = crosses[i];
+                    translate(c.c, func_x(c.x, c.y, t), func_y(c.x, c.y, t));
+                }
+                var trT = 2*Math.floor(t*trace_steps);
+                if (trT >= 0) {
+                    for(var i = 0; i < traces.length; i++) {
+                        var tr = traces[i];
+                        tr.tr.attr({d: "M " + tr.d.slice(0, trT).join(" ")});
+                    }
+                }
+                if(document.getElementById("grid").checked) {
+                    for(var i = 0; i < lines.length; i++) {
+                        var l = lines[i];
+                        d = []
+                        for(var j = 0; j < l.d.length; j += 2) {
+                            var x = l.d[j];
+                            var y = l.d[j+1];
+                            d.push(func_x(x, y, t), func_y(x, y, t));
+                        }
+                        l.l.attr({d: "M " + d.join(" ")});
+                    }
+                }
+                document.getElementById("tt").innerHTML = "t = "+Math.round(100*t)+"%";
+            }
+        </script>
+
+    </body>
+</html>

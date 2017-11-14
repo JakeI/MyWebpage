@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Unit Circle</title>
+        <script src="../../../../Snap.svg-0.5.1/dist/snap.svg-min.js"></script>
+    </head>
+    <body>
+        <div style="position: fixed; top: 10px; bottom: 10px; left: 10px; right: 10px;">
+        <div id="info" style="font-size:18pt;">Re(z) = 0.70, Im(z) = 0.70, arg(z) = 45deg = &pi;/4.00</div>
+        <svg id="svg" style="display:block; margin-left:auto; margin-right: auto" 
+                height="100%" viewbox="-2,-2, 4,4">
+            <marker orient="auto" refY="0" refX="0" id="marker_arrow"
+                style="overflow:visible">
+               <path
+                  id="marker_arrow_path"
+                  d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+                  style="fill:#000000;stroke:#000000;stroke-width:0.01"
+                  transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+             </marker>
+            <marker orient="auto" refY="0" refX="0" id="marker_arrow_green"
+                style="overflow:visible">
+                <path
+                id="marker_arrow_path"
+                d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+                style="fill:#5CD82B;stroke:#5CD82B;stroke-width:0.01"
+                transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+            </marker>
+            <g id="all" transform="matrix(1,0,0,-1,0,0)">
+                <path id="arrow_up" d="m 0,-1.5, 0,3"
+                    style="stroke:gray;stroke-width:0.02;marker-end:url(#marker_arrow)" />
+                <path id="arrow_right" d="m -1.5,0, 3,0"
+                    style="stroke:gray;stroke-width:0.02;marker-end:url(#marker_arrow)" />
+                <circle cx="0" cy="0" r="1" stroke="gray" stroke-width="0.01" fill="none" />
+                <path id="arrow" d="M 0,0, 0.707,0.707"
+                    style="stroke:#5CD82B;stroke-width:0.02;marker-end:url(#marker_arrow_green)" />
+                <path id="real" d="M 0.707,0, 0.707,0.707"
+                    style="stroke:#E73939;stroke-width:0.02;" />
+                <path id="imag" d="M 0,0.707, 0.707,0.707"
+                    style="stroke:#1D3FD4;stroke-width:0.02;" />
+                
+            </g>
+        </svg>
+        </div>
+        <script>
+
+            var s = Snap("#svg");
+            var arrow = s.select("#arrow");
+            var real = s.select("#real");
+            var imag = s.select("#imag");
+            var svg = document.getElementsByTagName("svg")[0]
+            svg = document.querySelector('svg');
+            var info = document.getElementById('info');
+
+            function mouse( ev, x, y ) {
+                var rect = svg.getBoundingClientRect();
+                x = 2*(x - rect.left)/(rect.right - rect.left) - 1;
+                y = -(2*(y - rect.top)/(rect.bottom - rect.top) - 1);
+
+                var phi = Math.atan2(y, x);
+                var cs = {c:Math.cos(phi), s:Math.sin(phi)};
+
+                arrow.attr({d: Snap.format("M 0,0, {c},{s}", cs)});
+                real.attr({d: Snap.format("M {c},0, {c},{s}", cs)});
+                imag.attr({d: Snap.format("M 0,{s}, {c},{s}", cs)});
+
+                info.innerHTML = Snap.format("Re(z) = {x}, Im(z) = {y}, arg(z) = {a}deg = &pi;/{b}",
+                    {x:cs.c.toFixed(2), y:cs.s.toFixed(2), a:(phi*180/Math.PI).toFixed(2), b:(Math.PI/phi).toFixed(2)});
+            };
+            s.mousemove(mouse);
+            
+        </script>
+
+    </body>
+</html>
