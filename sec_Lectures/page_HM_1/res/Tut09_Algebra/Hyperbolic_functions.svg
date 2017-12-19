@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="520px" height="420px" version="1.1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <path id="p2" d="M 401.421 310 C 409.421 321.314 425.359 343.205 460 383.205" stroke="black" stroke-width="2"/>
+ </defs>
+ <path d="M 60 210 h 400 M 440 200 l 20 10 l -20 10 M 260 10 v 400 M 250 30 l 10 -20 l 10 20" stroke="black" stroke-width="1"/>
+ <path d="M 401.421 310 C 393.421 298.686 360 254 360 210 360 166 393.421 121.314 401.421 110 L 260 210 Z" fill="cyan" stroke="black" opacity=".5" stroke-width="2"/>
+ <path d="M 401.421 310 C 393.421 298.686 360 254 360 210 360 166 393.421 121.314 401.421 110 L 260 210 Z" fill="none" stroke="black" stroke-width="2"/>
+ <path d="M 60 10 l 400 400 M 460 10 l -400 400" stroke="blue" stroke-width="2" stroke-dasharray="20,10"/>
+ <path d="M 160 210 v 100" stroke="blue" stroke-width="1" stroke-dasharray="5,5"/>
+ <path d="M 160 310 h 100" stroke="blue" stroke-width="1" stroke-dasharray="5,5"/>
+ <path d="M 401.421 210 v 100" stroke="black" stroke-width=".01" stroke-dasharray=".1,.1"/>
+ <path d="M 118.579 310 C 126.579 298.686 160 254 160 210 160 166 126.579 121.314 118.579 110" fill="none" stroke="black" stroke-width="2"/>
+ <use xlink:href="#p2"/>
+ <use xlink:href="#p2" transform="matrix(-1, 0, 0, 1, 520, 0)"/>
+ <use xlink:href="#p2" transform="matrix(1, 0, 0, -1, 0, 420)"/>
+ <use xlink:href="#p2" transform="matrix(-1, 0, 0, -1, 520, 420)"/>
+ <path d="M 401.421 210 v -100 H 260" stroke="red" fill="none" stroke-width="1"/>
+ <text x="235" y="305" font-family="Times" fill="blue" font-size="25">-1</text>
+ <text x="165" y="236" font-family="Times" fill="blue" font-size="25">-1</text>
+  <text x="458" y="240" font-family="Times" font-size="25" font-style="italic" id="text33">x</text>
+  <text x="230" y="20" font-family="Times" font-size="25" font-style="italic" id="text35">y</text>
+  <text x="280" y="103" font-family="Times" fill="red" font-size="25" id="text37">cosh</text>
+  <text x="333" y="103" font-family="Times" fill="red" font-size="30" font-style="italic" id="text37a">A</text>
+  <text x="410" y="170" font-family="Times" fill="red" font-size="25" id="text39">sinh</text>
+  <text x="458" y="170" font-family="Times" fill="red" font-size="30" font-style="italic" id="text39a">A</text>
+ <text x="315" y="216" font-family="Times" font-size="38" font-style="italic">A</text>
+ <text x="10" y="150" font-family="Times" font-size="25" font-style="italic">x² – y² =</text>
+  <text x="100" y="150" font-family="Times" font-size="25" id="text43">1</text>
+</svg>
