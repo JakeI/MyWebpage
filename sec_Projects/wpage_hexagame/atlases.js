@@ -12,64 +12,51 @@ function Atlas(gl, name, path, sprites) {
     return this;
 }
 
-function imgToPx(img) {
-    var canvas = Canvas();
-    canvas.width = img.width;
-    canvas.height = img.height;
-    context = canvas.getContext('2d');
-    context.drawImage(img, 0, 0, img.width, img.height);
-    return context.getImageData(0, 0, img.width, img.height).data;
-}
-
 function Texture(gl, path) {
     this.texture = gl.createTexture();
     this.width = 1;
     this.height = 1;
 
     gl.bindTexture(gl.TEXTURE_2D, this.texture);
-    //gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
-    //              new Uint8Array([0, 0, 255, 255]));
-    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+                  new Uint8Array([0, 255, 255, 255]));
+    //gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT); 
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
 
-    data = imgs[path.substr(0, path.indexOf(".png"))];
+    /*data = imgs[path.substr(0, path.indexOf(".png"))];
     D = Math.sqrt(data.length/4);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, D, D, 0, gl.RGBA, gl.UNSIGNED_BYTE,
                   new Uint8Array(data));
-    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.generateMipmap(gl.TEXTURE_2D);*/
 
-    /*texture = this;
+    texture = this;
 
     img = new Image();
     console.log("path is: "+path);
     img.onload = function () {
-        ////gl.enable(gl.TEXTURE_2D);
-        //console.log("loding texture: "+texture.texture);
-        //gl.bindTexture(gl.TEXTURE_2D, texture.texture);
-        ////gl.texImage2D(gl.TEXTURE_2D, 0, img, true);
-        //gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-        //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
-        //gl.generateMipmap(gl.TEXTURE_2D);
+        //gl.enable(gl.TEXTURE_2D);
+        console.log("loding texture: "+texture.texture);
+        gl.bindTexture(gl.TEXTURE_2D, texture.texture);
         
         gl.bindTexture(gl.TEXTURE_2D, texture.texture);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT); 
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);  
+        console.log("used img: "+img);
+
         gl.generateMipmap(gl.TEXTURE_2D);
         
         texture.width = img.width;
         texture.height = img.height;
     };
-    img.src = path;*/
+    img.crossOrigin = "";
+    img.src = "static.png"; //path;
 
     return this;
 }
 
-var atlas_data = {
+const atlas_data = {
     static: {
         "alpha.png":
         {

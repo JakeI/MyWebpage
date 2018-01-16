@@ -32,7 +32,7 @@ function uniform(gl, shader, vars) {
     }
 }
 
-var shader_text = {
+const shader_text = {
     std: {
         param: [
             "translation", "scale", "rotation", "color", "res",

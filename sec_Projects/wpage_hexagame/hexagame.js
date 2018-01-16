@@ -82,7 +82,7 @@ function render() {
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 	// Background
-	/*gl.useProgram(shaders.std.shader);
+	gl.useProgram(shaders.std.shader);
 	gl.enableVertexAttribArray(shaders.std.pos);
 
 	uniform(gl, shaders.std, world.camera);
@@ -104,7 +104,7 @@ function render() {
 
 	renderStdInstanced(objects.hex, objects.hex_grid, gl.TRIANGLE_STRIP);
 
-	disableVertexAttribArray(gl, shaders.std_instanced, ["trans", "idcol", "pos"]);*/
+	disableVertexAttribArray(gl, shaders.std_instanced, ["trans", "idcol", "pos"]);
 	
 	gl.useProgram(shaders.textured.shader);
 	enableVertexAttribArray(gl, shaders.textured, ["pos", "uv"]);
