@@ -12,7 +12,7 @@ function Objects(gl) {
     return this;
 }
 
-objects_data = {
+const objects_data = {
     sprite: [
 		1.0, 1.0,       1.0, 1.0,
 		-1.0, 1.0,      0.0, 1.0,
