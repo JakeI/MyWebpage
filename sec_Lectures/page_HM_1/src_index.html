@@ -284,6 +284,7 @@
         also nur in Kombination mit dem 
         mündlichen Vortrag und den Tafelanschrieben zu betrachten.
     </p>
+
     <ul>
         <li>
             <a href="res/Tut01_Ausagenlogik-Mengenlehre/Tut01.pdf" target="_blank">
@@ -291,22 +292,10 @@
             </a>
         </li>
         <li>
-            <a href="res/Tut03_Induktion/Tut03.slides.html" target="_blank">
-                Tut03 - Induktion
-            </a>
-            <span style="display: inline-block; width: 10pt;"></span>
-            <a href="res/Tut03_Induktion/Tut03.ipynb" download>
-                (*.ipynb)
-            </a>
+            <span data-tut="Tut03_Induktion"></span>
         </li>
         <li>
-            <a href="res/Tut04_KomplexeZahlen/Tut04.slides.html" target="_blank">
-                Tut04 - Komplexe Zahlen
-            </a>
-            <span style="display: inline-block; width: 10pt;"></span>
-            <a href="res/Tut04_KomplexeZahlen/Tut04.ipynb" download>
-                (*.ipynb)
-            </a>
+            <span data-tut="Tut04_KomplexeZahlen"></span>
             <span style="display: inline-block; width: 10pt;"></span>
             <a href="res/Tut04_KomplexeZahlen/transform.html" target="_blank">
                 $z^3$ Funktion
@@ -317,53 +306,23 @@
             </a>
         </li>
         <li>
-            <a href="res/Tut05_Folgen/Tut05.slides.html" target="_blank">
-                Tut05 - Folgen
-            </a>
-            <span style="display: inline-block; width: 10pt;"></span>
-            <a href="res/Tut05_Folgen/Tut05.ipynb" download>
-                (*.ipynb)
-            </a>
+            <span data-tut="Tut05_Folgen"></span>
         </li>
         <li>
-            <a href="res/Tut06_Reihen/Tut06.slides.html" target="_blank">
-                Tut06 - Reihen
-            </a>
-            <span style="display: inline-block; width: 10pt;"></span>
-            <a href="res/Tut06_Reihen/Tut06.ipynb" download>
-                (*.ipynb)
-            </a>
+            <span data-tut="Tut06_Reihen"></span>
         </li>
         <li>
-            <a href="res/Tut07_PotenzReihen/Tut07.slides.html" target="_blank">
-                Tut07 - Potenzreihen und Additionstheoreme
-            </a>
-            <span style="display: inline-block; width: 10pt;"></span>
-            <a href="res/Tut07_PotenzReihen/Tut07.ipynb" download>
-                (*.ipynb)
-            </a>
+            <span data-tut="Tut07_PotenzReihen"></span>
         </li>
         <li>
-            <a href="res/Tut08_lHospital/Tut08.slides.html" target="_blank">
-                Tut08 - Wiederholung und l'Hospital
-            </a>
-            <span style="display: inline-block; width: 10pt;"></span>
-            <a href="res/Tut08_lHospital/Tut08.ipynb" download>
-                (*.ipynb)
-            </a>
+            <span data-tut="Tut08_lHospital"></span>
             <span style="display: inline-block; width: 10pt;"></span>
             <a href="res/Tut08_lHospital/transform.html" target="_blank">
                 $z^5$ Funktion
             </a>
         </li>
         <li>
-            <a href="res/Tut09_Algebra/Tut09.slides.html" target="_blank">
-                Tut09 - Algebra
-            </a>
-            <span style="display: inline-block; width: 10pt;"></span>
-            <a href="res/Tut09_Algebra/Tut09.ipynb" download>
-                (*.ipynb)
-            </a>
+                <span data-tut="Tut09_Algebra"></span>
         </li>
         <li>
             <a href="res/Tut09_Algebra/Christmas.html" target="_blank">
@@ -379,32 +338,61 @@
             </a>
         </li>
         <li>
-            <a href="res/Tut10_Ableitungen/Tut10.slides.html" target="_blank">
-                Tut10 - Ableitung
-            </a>
-            <span style="display: inline-block; width: 10pt;"></span>
-            <a href="res/Tut10_Ableitungen/Tut10.ipynb" download>
-                (*.ipynb)
-            </a>
+            <span data-tut="Tut10_Ableitungen"></span>
         </li>
         <li>
-            <a href="res/Tut11_Integrale/Tut11.slides.html" target="_blank">
-                Tut11 - Integrale
-            </a>
-            <span style="display: inline-block; width: 11pt;"></span>
-            <a href="res/Tut11_Integrale/Tut11.ipynb" download>
-                (*.ipynb)
-            </a>
+            <span data-tut="Tut11_Integrale"></span>
         </li>
         <li>
-            <a href="res/Tut12_UneigentlicheIntegrale/Tut12.slides.html" target="_blank">
-                Tut11 - Uneigentliche Integrale
-            </a>
-            <span style="display: inline-block; width: 11pt;"></span>
-            <a href="res/Tut12_UneigentlicheIntegrale/Tut12.ipynb" download>
-                (*.ipynb)
-            </a>
+            <span data-tut="Tut12_UneigentlicheIntegrale"></span>
         </li>
     </ul>
+
+    <script type="text/javascript">
+        var R = document.querySelectorAll("[data-tut]");
+        for(var i = 0; i < R.length; i++) {
+            var r = R[i];
+            var data = r.getAttribute("data-tut").split('_');
+            var tut = data[0];
+            var name = data[1];
+            var url = tut + '_' + name.replace(" ", "") + '/' + tut;
+            var title = tut + " - " + name.split(/(?=[A-Z])/).join(" ");
+            var contrib = 'https://github.com/JakeI/MyWebpage/blob/master/sec_Lectures/page_HM_1/res/' 
+                            + url + '.ipynb';
+            r.innerHTML = '<a href="res/' + url + 
+                    '.slides.html" target="_blank">' + title + 
+                    '</a><span style="display: inline-block; width: 10pt;"></span>(<a href="res/' +
+                    url + '.slides.html?print-pdf" target="_blank">print</a>,' +
+                    '<span style="display: inline-block; width: 5pt"></span><a href="' +
+                    contrib + '" target="_blank">contrib</a>,' +
+                    '<span style="display: inline-block; width: 5pt"></span><a href="res/' +
+                    url + '.ipynb" download>*.ipynb</a>)';
+        }
+    </script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+<!--
+        <li>
+            <a href="res/Tut03_Induktion/Tut03.slides.html" target="_blank">
+                Tut03 - Induktion
+            </a>
+            <span style="display: inline-block; width: 10pt;"></span>
+            (
+            <a href="res/Tut03_Induktion/Tut03.slides.html?print-pdf" target="_blank">
+                print
+            </a>
+            <span style="display: inline-block; width: 5pt"></span>
+            <a href="res/Tut03_Induktion/Tut03.ipynb" download>
+                *.ipynb
+            </a>
+            )
+        </li>
+-->
