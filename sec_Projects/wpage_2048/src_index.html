@@ -1,0 +1,234 @@
+<html lang="de">
+<head>
+  <title>2048</title>
+
+  <meta content="Blog, JavaScript, Computer Science, Machine Learning" name="keywords"/>
+  <!-- Start Default Header -->
+<meta content="Jochen K. Illerhaus (called JakeI)" name="author"/>
+<meta content="My personal webpage" name="description"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../icons/icon.ico" rel="shortcut icon" type="image/x-icon"/>
+
+<meta charset="utf-8"/>
+
+<link href="https://fonts.googleapis.com/css?family=Kalam" rel="stylesheet" type="text/css"/>
+<link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+
+<link href="../../style/web.css" rel="stylesheet" type="text/css" media="(min-width: 1000px)" />
+<link href="../../style/phone.css" rel="stylesheet" type="text/css" media="(max-width: 1000px)" />
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<!-- End Default Header -->
+  <script src="../../Snap.svg-0.5.1/dist/snap.svg-min.js"></script>
+  <script type="text/javascript" src="page.js"></script>
+  <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="page testpage">
+    <h1>2048</h1>
+
+    <svg id="svg" style="display:block; margin-left:auto; margin-right: auto" 
+        height="100%" viewbox="-1.3,-1.3, 2.6,2.6">
+        <g id="all" transform="matrix(1,0,0,-1,0,0)">
+
+            <rect id="background" x="-1" y="-1" width="2" height="2" fill="#33b"></rect> 
+
+            <!-- Grid -->
+            <line id="grid-row" x1="-0.95" y1="-0.95" x2="0.95" y2="-0.95" 
+                stroke="#3b3" style="stroke-width: 0.02" fill="none"></line>
+            <line id="grid-col" x1="-0.95" y1="-0.95" x2="-0.95" y2="0.95" 
+                stroke="#3b3" style="stroke-width: 0.015" fill="none"></line>
+
+            <!-- Tile -->
+            
+
+            <g id="tile" transform="matrix(1,0,0,-1,  -0.9,-0.9)" visibility="hidden">
+                    <rect id="title" x="0" y="-0.375" width="0.375" height="0.375"
+                    fill="#fff" stroke="none"></rect>
+                    <text id="tile-text" x="0.1875" y="-0.1275" style="font-size: 0.15" 
+                        fill="#000" text-anchor="middle" alignment-baseline="central"></text>
+            </g>
+            
+        </g>
+    </svg>
+    <script>
+
+    var s = Snap("#svg");
+
+    var grid_row = s.select("#grid-row");
+    for(var i = 1; i < 6; i++) {
+        var row = grid_row.clone();
+        var y = (1.9/4.0)*i - 0.95;
+        row.attr({y1: y, y2: y});
+    }
+    var grid_col = s.select("#grid-col");
+    for(var i = 1; i < 6; i++) {
+        var col = grid_col.clone();
+        var x = (1.9/4.0)*i - 0.95;
+        col.attr({x1: x, x2: x});
+    }
+    var grid_tile = s.select('#tile');
+    var tile_map = [];
+    for(var i = 0; i < 4; i++){
+        var y = (1.9/4.0)*i - 0.9;
+        for(var j = 0; j < 4; j++){
+            var x = (1.9/4.0)*j - 0.9;
+
+            var tile = grid_tile.clone();
+            tile.attr({
+                id: Snap.format("grid-{i}{j}", {i:i, j:j}),
+                transform: Snap.format("matrix(1,0,0,-1,  {x},{y})", {x:x, y:y})
+            });
+            var ind = 4*(3-i)+j;
+            tile_map[ind] = tile;
+        }
+    }
+    grid_tile.remove()
+
+    function show(state) {
+        for(var i = 0; i < 4; i++) {
+            for(var j = 0; j < 4; j++) {
+                var ind = 4*i+j; 
+                var tile = tile_map[ind];
+                var st = state[ind];
+                if(st === 0) {
+                    tile.attr({visibility: "hidden"});
+                } else {
+                    tile.attr({visibility: "visible"});
+                    tile.select("text").remove();
+                    tile.text(0.1875, -0.1275, ""+Math.pow(2, st)).attr({
+                        style:"font-size: 0.15",
+                        fill: "#000", "text-anchor": "middle", 
+                        "alignment-baseline": "central"
+                    });
+                }
+            }
+        }
+    }
+    var dummy = [
+            0,0,0,1,
+            9,3,0,0,
+            9,2,1,6,
+            0,0,2,6
+        ]; 
+    show(dummy);
+    
+    function getij(state, i, j) {
+        return state[4*i+j];
+    }
+    function indij(i, j) {
+        return 4*i+j;
+    }
+
+    function move(state, dir) {
+        var ss = [];
+        for(var i = 0; i < state.length; i++) ss[i] = state[i];
+        state = ss;
+
+        switch(dir) {
+            case 0: // up
+                for(var j = 0; j < 4; j++) {
+                    for(var i = 1; i < 4; i++) {
+                        var g = getij(state, i, j);
+                        if(g == 0) continue;
+                        // check above for merge posiones
+                        var sucsess = false;
+                        for(var k = i-1; k >= 0; k--) {
+                            var h = getij(state, k, j);
+                            if(h == g) { // merge
+                                sucsess = true;
+                                state[indij(k, j)] += 1;
+                                state[indij(i, j)] = 0;  
+                                break;         
+                            }
+                        }
+                        if(!sucsess) { // move to free spot
+                            for(var k = i-1; k > 0; k--) {
+                                var h = getij(state, k, j);
+                                var f = getij(state, k-1, j);
+                                if(h == 0 && f != 0) {
+                                    sucsess = true;
+                                    state[indij(k, j)] = g;
+                                    state[indij(i, j)] = 0;
+                                    break;
+                                }
+                            }
+                        }
+                        if(!sucsess) {
+                            var h = getij(state, 0, j);
+                            if(h == 0) {
+                                sucsess = true;
+                                state[indij(0, j)] = g;
+                                state[indij(i, j)] = 0;
+                            }
+                        }
+                    }
+                }
+                break;
+        }
+        return state;
+    }
+
+    //dummy = move(dummy, 0); 
+    //show(dummy);
+
+    setTimeout(function () { dummy = move(dummy, 0); show(dummy)}, 1000);
+
+    </script>
+
+    <div id="tools">
+        <span class="button" onclick="compile();">
+            Compile
+            <span class="tooltip">
+                Compile the code blow and try to run it 
+                as a simulation. (Shift-Return)
+            </span>
+        </span>
+        <span class="button" onclick="slower();">
+            &lt;
+            <span class="tooltip">
+                slow donw the simulation
+            </span>
+        </span>
+        <span class="button" onclick="pause();">
+            <span id="pausebtn">1x</span>
+            <span class="tooltip">
+                shows the current simulation speed. <br />
+                Click to toggle simulating.
+            </span>
+        </span>
+        <span class="button" onclick="faster();">
+            &gt;
+            <span class="tooltip">
+                speed up the simulation
+            </span>
+        </span>
+        <span class="button" onclick="restart();">
+            <span id="timer">t = 0</span>
+            <span class="tooltip">
+                shows the current simulation time <br />
+                click to reset the time to 0.0 (Ctrl-Tab)
+            </span>
+        </span>
+        <div class="dropdown">
+            <button onclick='document.getElementById("Example-Selector").classList.toggle("show");'
+                class="dropbtn">Example</button>
+            <div id="Example-Selector" class="dropdown-content">
+            </div>
+        </div> 
+    </div>
+    <div id="editor">
+    </div>
+    <script src="../../scripts/ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="editor.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        start();
+    </script>
+</body>
+</html>

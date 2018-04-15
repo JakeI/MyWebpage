@@ -2,7 +2,7 @@
 <head>
 
  <title>
-  Contact me - Jake
+  GLSL Live Editor
  </title>
  <meta content="Blog, JavaScript, Computer Science, Machine Learning" name="keywords"/>
  <!-- Start Default Header -->
@@ -23,31 +23,98 @@
  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
  </script>
  <!-- End Default Header -->
+ <script id="gl" src="gl.js" type="text/javascript">
+ </script>
+ <script src="page.js" type="text/javascript">
+ </script>
+ <link href="style.css" media="screen" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<div class="menu">
 		<a href="../../sec_Welcome/page_Hello/index.html">Welcome</a>
-		<a href="../../sec_Projects/page_Triple_Pendulum/index.html">Projects</a>
-		<a href="../../sec_Lectures/page_HM_2/index.html">Lectures</a>
-		<span class="current-menu-entry">Contact</span>
+		<span class="current-menu-entry">Projects</span>
+		<a href="../../sec_Lectures/page_HM_1/index.html">Lectures</a>
+		<a href="../../sec_Contact/page_Contact_me/index.html">Contact</a>
 	</div>
 
 	<div class="main">	<div class="main">
 
 		<div class="contents">
 			<h1>Contents</h1>
-			<a href="../page_Contact_me/index.html">Contact me</a>
+			<a href="../page_Triple_Pendulum/index.html">Triple Pendulum</a>
+			<a href="../page_EM_Filter/index.html">EM Filter</a>
+			<a href="../page_GLSL_Editor/index.html">GLSL Editor</a>
+			<a href="../page_xkcd_style/index.html">xkcd style</a>
+			<a href="../page_Fractional_Function_Application/index.html">Fractional Function Application</a>
+			<a href="../page_Gravity_Diff_Eq/index.html">Gravity Diff Eq</a>
 		</div>
 	</div>
 
 	<div class="page">
 
  <h1>
-  Contact me
+  GLSL Live Editor
  </h1>
- <p>
-  Links are in the footer section below.
- </p>
+ <canvas height="480" id="myCanvas" width="640">
+  You have a stupid Browser, go get one which supports canvas and WebGL
+ </canvas>
+ <div id="tools">
+  <span class="button" onclick="compile();">
+   Compile
+   <span class="tooltip">
+    Compile the code blow and try to run it 
+                as a simulation. (Shift-Return)
+   </span>
+  </span>
+  <span class="button" onclick="slower();">
+   &lt;
+   <span class="tooltip">
+    slow donw the simulation
+   </span>
+  </span>
+  <span class="button" onclick="pause();">
+   <span id="pausebtn">
+    1x
+   </span>
+   <span class="tooltip">
+    shows the current simulation speed.
+    <br/>
+    Click to toggle simulating.
+   </span>
+  </span>
+  <span class="button" onclick="faster();">
+   &gt;
+   <span class="tooltip">
+    speed up the simulation
+   </span>
+  </span>
+  <span class="button" onclick="restart();">
+   <span id="timer">
+    t = 0
+   </span>
+   <span class="tooltip">
+    shows the current simulation time
+    <br/>
+    click to reset the time to 0.0 (Ctrl-Tab)
+   </span>
+  </span>
+  <div class="dropdown">
+   <button class="dropbtn" onclick='document.getElementById("Example-Selector").classList.toggle("show");'>
+    Example
+   </button>
+   <div class="dropdown-content" id="Example-Selector">
+   </div>
+  </div>
+ </div>
+ <div id="editor">
+ </div>
+ <script charset="utf-8" src="../../scripts/ace/src-noconflict/ace.js" type="text/javascript">
+ </script>
+ <script src="editor.js" type="text/javascript">
+ </script>
+ <script type="text/javascript">
+  start();
+ </script>
 	</div>
 	</div>	<div class="footer">
 		<a href="mailto:j.illerhaus@live.de" >
