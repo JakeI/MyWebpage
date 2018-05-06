@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<title>Tut01 slides</title>
+<title>Tut02 slides</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -11858,9 +11858,9 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Tut-01---Matrizen">Tut 01 - Matrizen<a class="anchor-link" href="#Tut-01---Matrizen">&#182;</a></h1><center>
-<img src="https://imgs.xkcd.com/comics/matrix_transform.png">
-</center><p><em>Jochen Illerhaus - jochen.illerhaus@student.kit.edu</em></p>
+<h1 id="Tut-02---Determinante">Tut 02 - Determinante<a class="anchor-link" href="#Tut-02---Determinante">&#182;</a></h1>$$
+\begin{vmatrix}1 &amp; 5 &amp; 9 &amp; 13\\2 &amp; 6 &amp; 10 &amp; 14\\3 &amp; 7 &amp; 11 &amp; 15\\4 &amp; 8 &amp; 12 &amp; 16\end{vmatrix} = \\+1\underbrace{\begin{vmatrix}6 &amp; 10 &amp; 14\\7 &amp; 11 &amp; 15\\8 &amp; 12 &amp; 16\end{vmatrix}}_{+6\underbrace{\begin{vmatrix}11 &amp; 15\\12 &amp; 16\end{vmatrix}}_{-4}-10\underbrace{\begin{vmatrix}7 &amp; 15\\8 &amp; 16\end{vmatrix}}_{-8}+14\underbrace{\begin{vmatrix}7 &amp; 11\\8 &amp; 12\end{vmatrix}}_{-4}}-5\underbrace{\begin{vmatrix}2 &amp; 10 &amp; 14\\3 &amp; 11 &amp; 15\\4 &amp; 12 &amp; 16\end{vmatrix}}_{+2\underbrace{\begin{vmatrix}11 &amp; 15\\12 &amp; 16\end{vmatrix}}_{-4}-10\underbrace{\begin{vmatrix}3 &amp; 15\\4 &amp; 16\end{vmatrix}}_{-12}+14\underbrace{\begin{vmatrix}3 &amp; 11\\4 &amp; 12\end{vmatrix}}_{-8}}+9\underbrace{\begin{vmatrix}2 &amp; 6 &amp; 14\\3 &amp; 7 &amp; 15\\4 &amp; 8 &amp; 16\end{vmatrix}}_{+2\underbrace{\begin{vmatrix}7 &amp; 15\\8 &amp; 16\end{vmatrix}}_{-8}-6\underbrace{\begin{vmatrix}3 &amp; 15\\4 &amp; 16\end{vmatrix}}_{-12}+14\underbrace{\begin{vmatrix}3 &amp; 7\\4 &amp; 8\end{vmatrix}}_{-4}}-13\underbrace{\begin{vmatrix}2 &amp; 6 &amp; 10\\3 &amp; 7 &amp; 11\\4 &amp; 8 &amp; 12\end{vmatrix}}_{+2\underbrace{\begin{vmatrix}7 &amp; 11\\8 &amp; 12\end{vmatrix}}_{-4}-6\underbrace{\begin{vmatrix}3 &amp; 11\\4 &amp; 12\end{vmatrix}}_{-8}+10\underbrace{\begin{vmatrix}3 &amp; 7\\4 &amp; 8\end{vmatrix}}_{-4}}
+$$<p><em>Jochen Illerhaus - jochen.illerhaus@student.kit.edu</em></p>
 
 </div>
 </div>
@@ -11890,30 +11890,69 @@ Fragen
 </div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[179]:</div>
+<div class="prompt input_prompt">In&nbsp;[81]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">html</span>
 &lt;script type=&quot;text/javascript&quot;&gt;
+    /*
+    function eigen_vec(a, b, c, d, lam, id) {
+        var k = (lam - a)/b;
+        var v1 = 1/Math.sqrt(1+k);
+        var v2 = k*v1;
+        
+        const scale = 3;
+        v1 *= scale;
+        v2 *= scale;
+        
+        var d = &quot;m 0,0 &quot;+v1.toFixed(2)+&quot;,&quot;+v2.toFixed(2);
+        document.getElementById(id).setAttribute(&#39;d&#39;, d);
+        document.getElementById(id+&quot;_out&quot;).setAttribute(&#39;d&#39;, d);
+    }
+    */   
+    
     function updateValue() {
         
-        var content = document.getElementById(&quot;bsp1_content&quot;);
+        var a = parseFloat(document.getElementById(&quot;num_a&quot;).value);
+        var b = parseFloat(document.getElementById(&quot;num_b&quot;).value);
+        var c = parseFloat(document.getElementById(&quot;num_c&quot;).value);
+        var d = parseFloat(document.getElementById(&quot;num_d&quot;).value);
         
-        var a = document.getElementById(&quot;num_a&quot;).value;
-        var b = document.getElementById(&quot;num_b&quot;).value;
-        var c = document.getElementById(&quot;num_c&quot;).value;
-        var d = document.getElementById(&quot;num_d&quot;).value;
+        var det = a*d - b*c;
+        /*
+        var sp = a + d;
+        var arg = sp*sp/4.0 - det;
+        var delta = Math.sqrt(arg);
+        var lam1 = sp/2 + delta;
+        var lam2 = sp/2 - delta;
+        */
         
-        content.setAttribute(&#39;transform&#39;, &quot;matrix(&quot;+a+&quot;,&quot;+c+&quot;,&quot;+b+&quot;,&quot;+d+&quot;,0,0)&quot;);
+        document.getElementById(&quot;bsp1_content&quot;).setAttribute(&#39;transform&#39;, &quot;matrix(&quot;+a+&quot;,&quot;+c+&quot;,&quot;+b+&quot;,&quot;+d+&quot;,0,0)&quot;);
+        document.getElementById(&quot;det&quot;).innerHTML = det.toFixed(2);
+        //document.getElementById(&quot;lam1&quot;).innerHTML = lam1.toFixed(2);
+        //document.getElementById(&quot;lam2&quot;).innerHTML = lam2.toFixed(2);
+        
+        //eigen_vec(a, b, c, d, lam1, &quot;eigen1&quot;);
+        //eigen_vec(a, b, c, d, lam2, &quot;eigen2&quot;);
     }
 &lt;/script&gt;
 
 &lt;table&gt;&lt;tr&gt;
 
 &lt;td&gt;
-&lt;p&gt;
-    Benutze Transormationsmatrix $\begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}$
-&lt;/p&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;td&gt;$\det(M) = $&lt;/td&gt;&lt;td id=&quot;det&quot;&gt;1.00&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!--
+        &lt;tr&gt;
+            &lt;td&gt;$\lambda_1 = $&lt;/td&gt;&lt;td id=&quot;lam1&quot;&gt;1.00&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;$\lambda_2 = $&lt;/td&gt;&lt;td id=&quot;lam2&quot;&gt;1.00&lt;/td&gt;
+        &lt;/tr&gt;
+        --&gt;
+    &lt;/table&gt;
 &lt;/td&gt;
 
 &lt;td&gt;
@@ -11953,13 +11992,14 @@ Fragen
 &lt;/table&gt;
 
 &lt;/td&gt;
+&lt;/tr&gt;
 &lt;/table&gt;
 
 &lt;center&gt;
 &lt;svg viewbox=&quot;-5.1, -5.1, 11, 11&quot; width=&quot;600px&quot; heigth=&quot;400px&quot;&gt;
     &lt;marker orient=&quot;auto&quot; refY=&quot;0&quot; refX=&quot;0&quot; id=&quot;marker_arrow&quot; style=&quot;overflow:visible&quot;&gt;
         &lt;path d=&quot;M 0,0 5,-5 -12.5,0 5,5 0,0 Z&quot;
-            style=&quot;stroke:gray; fill: gray;&quot;
+            style=&quot;stroke:gray; fill: gray;&quot; fill-opacity=&quot;0.5&quot; stroke-opacity=&quot;0.5&quot;
             transform=&quot;matrix(-0.4,0,0,-0.4,-4,0)&quot; /&gt;
     &lt;/marker&gt;
     &lt;marker orient=&quot;auto&quot; refY=&quot;0&quot; refX=&quot;0&quot; id=&quot;marker_arrow_black&quot; style=&quot;overflow:visible&quot;&gt;
@@ -11967,24 +12007,84 @@ Fragen
                 style=&quot;stroke:black; fill: black;&quot;
                 transform=&quot;matrix(-0.4,0,0,-0.4,-4,0)&quot; /&gt;
     &lt;/marker&gt;
+    &lt;marker orient=&quot;auto&quot; refY=&quot;0&quot; refX=&quot;0&quot; id=&quot;marker_arrow_red&quot; style=&quot;overflow:visible&quot;&gt;
+        &lt;path d=&quot;M 0,0 5,-5 -12.5,0 5,5 0,0 Z&quot;
+                style=&quot;stroke:red; fill: red;&quot;
+                transform=&quot;matrix(-0.4,0,0,-0.4,-4,0)&quot; /&gt;
+    &lt;/marker&gt;
+    &lt;marker orient=&quot;auto&quot; refY=&quot;0&quot; refX=&quot;0&quot; id=&quot;marker_arrow_purple&quot; style=&quot;overflow:visible&quot;&gt;
+        &lt;path d=&quot;M 0,0 5,-5 -12.5,0 5,5 0,0 Z&quot;
+                style=&quot;stroke:purple; fill: purple;&quot;
+                transform=&quot;matrix(-0.4,0,0,-0.4,-4,0)&quot; /&gt;
+    &lt;/marker&gt;
     &lt;g transform=&quot;scale(1, -1)&quot;&gt;
         &lt;path d=&quot;m 0,-4.5, 0,9&quot;
             style=&quot;stroke:black;stroke-width:0.1;marker-end:url(#marker_arrow_black)&quot; /&gt;
         &lt;path d=&quot;m -4.5,0, 9,0&quot;
             style=&quot;stroke:black;stroke-width:0.1;marker-end:url(#marker_arrow_black)&quot; /&gt;
+        &lt;g id=&quot;black_markers&quot;&gt;&lt;/g&gt;
+        
         &lt;g id=&quot;bsp1_content&quot; transform=&quot;matrix(1, 0, 0, 1, 0, 0)&quot;&gt;
-            &lt;path d=&quot;m 0,-4.5, 0,9&quot;
+            &lt;path d=&quot;m 0,-4.5, 0,9&quot; fill-opacity=&quot;0.5&quot; stroke-opacity=&quot;0.5&quot;
                 style=&quot;stroke:gray;stroke-width:0.1;marker-end:url(#marker_arrow)&quot; /&gt;
-            &lt;path d=&quot;m -4.5,0, 9,0&quot;
+            &lt;path d=&quot;m -4.5,0, 9,0&quot; fill-opacity=&quot;0.5&quot; stroke-opacity=&quot;0.5&quot;
                 style=&quot;stroke:gray;stroke-width:0.1;marker-end:url(#marker_arrow)&quot; /&gt;
-                
-            &lt;rect x=&quot;0.5&quot; y=&quot;0.5&quot; width=&quot;1&quot; height=&quot;3&quot; fill=&quot;blue&quot; stroke=&quot;black&quot; stroke-width=&quot;0.1&quot;/&gt;
+            &lt;g id=&quot;gray_markers&quot;&gt;&lt;/g&gt;
+            
+            &lt;rect x=&quot;1&quot; y=&quot;1&quot; width=&quot;2&quot; height=&quot;2&quot; fill=&quot;blue&quot; stroke=&quot;black&quot; 
+                stroke-width=&quot;0.1&quot; /&gt;
+            &lt;line x1=&quot;1&quot; y1=&quot;1&quot; x2=&quot;0&quot; y2=&quot;1&quot; stroke=&quot;black&quot; stroke-width=&quot;0.04&quot; stroke-dasharray=&quot;0.04, 0.04&quot; 
+                stroke-opacity=&quot;0.5&quot; /&gt;
+            &lt;line x1=&quot;1&quot; y1=&quot;1&quot; x2=&quot;1&quot; y2=&quot;0&quot; stroke=&quot;black&quot; stroke-width=&quot;0.04&quot; stroke-dasharray=&quot;0.04, 0.04&quot; 
+                stroke-opacity=&quot;0.5&quot; /&gt;
+            &lt;line x1=&quot;3&quot; y1=&quot;1&quot; x2=&quot;3&quot; y2=&quot;0&quot; stroke=&quot;black&quot; stroke-width=&quot;0.04&quot; stroke-dasharray=&quot;0.04, 0.04&quot; 
+                stroke-opacity=&quot;0.5&quot; /&gt;
+            &lt;line x1=&quot;1&quot; y1=&quot;3&quot; x2=&quot;0&quot; y2=&quot;3&quot; stroke=&quot;black&quot; stroke-width=&quot;0.04&quot; stroke-dasharray=&quot;0.04, 0.04&quot; 
+                stroke-opacity=&quot;0.5&quot; /&gt;
             &lt;polygon points=&quot;350,75  379,161 469,161 397,215 423,301 350,250 277,301 303,215 231,161 321,161&quot;
                 style=&quot;fill:green;stroke:black;stroke-width:5;fill-rule:evenodd;&quot;
                 transform=&quot;translate(-8, -6) scale(0.015)&quot; /&gt;
+            &lt;polygon points=&quot;-1,1 -1,3 -3,1&quot; style=&quot;fill:orange;stroke:black;stroke-width:0.1;fill-rule:evenodd;&quot; /&gt;
+            &lt;text x=&quot;0.5&quot; y=&quot;3&quot; style=&quot;font-size: 1.8&quot; transform=&quot;scale(1, -1)&quot; stroke=&quot;balck&quot; fill=&quot;brown&quot;
+                    font-family=&quot;MathJax_Script&quot;&gt;
+                &lt;tspan stroke=&quot;black&quot; stroke-width=&quot;0.07&quot;&gt;KIT&lt;/tspan&gt;
+            &lt;/text&gt;
+            
+            &lt;!--
+            &lt;path id=&quot;eigen1&quot; d=&quot;m 0,0, 0,3&quot;
+                style=&quot;stroke:red;stroke-width:0.1;marker-end:url(#marker_arrow_red)&quot; /&gt;
+            &lt;path id=&quot;eigen2&quot; d=&quot;m 0,0, 3,0&quot;
+                style=&quot;stroke:purple;stroke-width:0.1;marker-end:url(#marker_arrow_purple)&quot; /&gt;
+            --&gt;
         &lt;/g&gt;
+        &lt;!--
+        &lt;path id=&quot;eigen1_out&quot; d=&quot;m 0,0, 0,3&quot;
+            style=&quot;stroke:red;stroke-width:0.1;marker-end:url(#marker_arrow_red)&quot; /&gt;
+        &lt;path id=&quot;eigen2_out&quot; d=&quot;m 0,0, 3,0&quot;
+            style=&quot;stroke:purple;stroke-width:0.1;marker-end:url(#marker_arrow_purple);&quot; /&gt;
+        --&gt;
     &lt;/g&gt;
 &lt;/svg&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+    function marker_text(stroke, params) {
+        s = &quot;&quot;;
+        for(y = -4.0; y &lt; 4; y += 1.0) {
+            s += &#39;&lt;line x1=&quot;-0.2&quot; x2=&quot;0.2&quot; y1=&quot;&#39; + y + &#39;&quot; y2=&quot;&#39; + y +
+                   &#39;&quot; stroke=&quot;&#39; + stroke + &#39;&quot; stroke-width=&quot;0.05&quot; &#39; + params + &#39; /&gt;\n&#39;;
+        }
+        for(x = -4.0; x &lt; 4; x += 1.0) {
+            s +=  &#39;&lt;line y1=&quot;-0.2&quot; y2=&quot;0.2&quot; x1=&quot;&#39; + x + &#39;&quot; x2=&quot;&#39; + x 
+                  + &#39;&quot; stroke=&quot;&#39; + stroke + &#39;&quot; stroke-width=&quot;0.05&quot; /&gt;\n&#39;;
+        }
+        return s;
+    }
+    
+    document.getElementById(&quot;black_markers&quot;).innerHTML = marker_text(&quot;black&quot;);
+    document.getElementById(&quot;gray_markers&quot;).innerHTML = 
+        marker_text(&quot;gray&quot;, &#39;fill-opacity=&quot;0.5&quot; stroke-opacity=&quot;0.5&quot;&#39;);
+&lt;/script&gt;
+
 &lt;/center&gt;
 </pre></div>
 
@@ -12004,25 +12104,64 @@ Fragen
 
 <div class="output_html rendered_html output_subarea ">
 <script type="text/javascript">
+    /*
+    function eigen_vec(a, b, c, d, lam, id) {
+        var k = (lam - a)/b;
+        var v1 = 1/Math.sqrt(1+k);
+        var v2 = k*v1;
+        
+        const scale = 3;
+        v1 *= scale;
+        v2 *= scale;
+        
+        var d = "m 0,0 "+v1.toFixed(2)+","+v2.toFixed(2);
+        document.getElementById(id).setAttribute('d', d);
+        document.getElementById(id+"_out").setAttribute('d', d);
+    }
+    */   
+    
     function updateValue() {
         
-        var content = document.getElementById("bsp1_content");
+        var a = parseFloat(document.getElementById("num_a").value);
+        var b = parseFloat(document.getElementById("num_b").value);
+        var c = parseFloat(document.getElementById("num_c").value);
+        var d = parseFloat(document.getElementById("num_d").value);
         
-        var a = document.getElementById("num_a").value;
-        var b = document.getElementById("num_b").value;
-        var c = document.getElementById("num_c").value;
-        var d = document.getElementById("num_d").value;
+        var det = a*d - b*c;
+        /*
+        var sp = a + d;
+        var arg = sp*sp/4.0 - det;
+        var delta = Math.sqrt(arg);
+        var lam1 = sp/2 + delta;
+        var lam2 = sp/2 - delta;
+        */
         
-        content.setAttribute('transform', "matrix("+a+","+c+","+b+","+d+",0,0)");
+        document.getElementById("bsp1_content").setAttribute('transform', "matrix("+a+","+c+","+b+","+d+",0,0)");
+        document.getElementById("det").innerHTML = det.toFixed(2);
+        //document.getElementById("lam1").innerHTML = lam1.toFixed(2);
+        //document.getElementById("lam2").innerHTML = lam2.toFixed(2);
+        
+        //eigen_vec(a, b, c, d, lam1, "eigen1");
+        //eigen_vec(a, b, c, d, lam2, "eigen2");
     }
 </script>
 
 <table><tr>
 
 <td>
-<p>
-    Benutze Transormationsmatrix $\begin{pmatrix} a & b \\ c & d \end{pmatrix}$
-</p>
+    <table>
+        <tr>
+            <td>$\det(M) = $</td><td id="det">1.00</td>
+        </tr>
+        <!--
+        <tr>
+            <td>$\lambda_1 = $</td><td id="lam1">1.00</td>
+        </tr>
+        <tr>
+            <td>$\lambda_2 = $</td><td id="lam2">1.00</td>
+        </tr>
+        -->
+    </table>
 </td>
 
 <td>
@@ -12062,207 +12201,14 @@ Fragen
 </table>
 
 </td>
-</table>
-
-<center>
-<svg viewbox="-5.1, -5.1, 11, 11" width="600px" heigth="400px">
-    <marker orient="auto" refY="0" refX="0" id="marker_arrow" style="overflow:visible">
-        <path d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
-            style="stroke:gray; fill: gray;"
-            transform="matrix(-0.4,0,0,-0.4,-4,0)" />
-    </marker>
-    <marker orient="auto" refY="0" refX="0" id="marker_arrow_black" style="overflow:visible">
-        <path d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
-                style="stroke:black; fill: black;"
-                transform="matrix(-0.4,0,0,-0.4,-4,0)" />
-    </marker>
-    <g transform="scale(1, -1)">
-        <path d="m 0,-4.5, 0,9"
-            style="stroke:black;stroke-width:0.1;marker-end:url(#marker_arrow_black)" />
-        <path d="m -4.5,0, 9,0"
-            style="stroke:black;stroke-width:0.1;marker-end:url(#marker_arrow_black)" />
-        <g id="bsp1_content" transform="matrix(1, 0, 0, 1, 0, 0)">
-            <path d="m 0,-4.5, 0,9"
-                style="stroke:gray;stroke-width:0.1;marker-end:url(#marker_arrow)" />
-            <path d="m -4.5,0, 9,0"
-                style="stroke:gray;stroke-width:0.1;marker-end:url(#marker_arrow)" />
-                
-            <rect x="0.5" y="0.5" width="1" height="3" fill="blue" stroke="black" stroke-width="0.1"/>
-            <polygon points="350,75  379,161 469,161 397,215 423,301 350,250 277,301 303,215 231,161 321,161"
-                style="fill:green;stroke:black;stroke-width:5;fill-rule:evenodd;"
-                transform="translate(-8, -6) scale(0.015)" />
-        </g>
-    </g>
-</svg>
-</center>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Blatt-1-Aufgabe-1a">Blatt 1 Aufgabe 1a<a class="anchor-link" href="#Blatt-1-Aufgabe-1a">&#182;</a></h1><p>Gegeben sind die Matrizen</p>
-\begin{align}
-A = \begin{pmatrix}2 &amp; 3i &amp; -1 \\ 0 &amp; 1 &amp; 1-i \\ 2+i &amp; 4 &amp; -3 \end{pmatrix} \;\;,\;\;\;\;\;\;\;
-B = \begin{pmatrix}1 &amp; -i &amp; 3 \\ 1 &amp; -1 &amp; 2 \\ 0 &amp; 3 &amp; 0 \end{pmatrix} \;\;,\;\;\;\;\;\;\;
-C = \begin{pmatrix}i &amp; 0 \\ 1 &amp; -i \\ 2 &amp; 2\end{pmatrix}
-\end{align}<p>Entscheiden Sie, welche der folgenden Ausdrücke definiert sind, und berechnen Sie diesegegebenenfalls:</p>
-$$
-A + B \;\;,\;\;\;\;\;\;\; A + C \;\;,\;\;\;\;\;\;\; BA \;\;,\;\;\;\;\;\;\; CB \;\;,\;\;\;\;\;\;\; \big(A+B\big)C
-$$<h1 id="Blatt-1-Aufgabe-1b">Blatt 1 Aufgabe 1b<a class="anchor-link" href="#Blatt-1-Aufgabe-1b">&#182;</a></h1><p>Sei $A = \begin{pmatrix}0&amp;1\\0&amp;2\end{pmatrix} \in \mathbb{R}^{2 \times 2}$. Bestimmen Sie alle Matrizen $L \in \mathbb{R}^{2 \times 2 }$ mit $LA = \begin{pmatrix}0&amp;0\\0&amp;0\end{pmatrix}$.</p>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[175]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">html</span>
-&lt;script type=&quot;text/javascript&quot;&gt;
-    function updatePhi() {
-        
-        var content = document.getElementById(&quot;phi_content&quot;);
-        
-        var phi = document.getElementById(&quot;num_phi&quot;).value * Math.PI;
-        
-        var a = Math.cos(phi);
-        var b = -Math.sin(phi);
-        var c = -b;
-        var d = a
-        
-        content.setAttribute(&#39;transform&#39;, &quot;matrix(&quot;+a+&quot;,&quot;+c+&quot;,&quot;+b+&quot;,&quot;+d+&quot;,0,0)&quot;);
-    }
-&lt;/script&gt;
-
-&lt;table&gt;&lt;tr&gt;
-
-&lt;td&gt;
-&lt;p&gt;
-    Benutze Transormationsmatrix 
-    $\begin{pmatrix} \cos(\varphi) &amp; -\sin(\varphi) \\ \sin(\varphi) &amp; \cos(\varphi) \end{pmatrix}$
-&lt;/p&gt;
-&lt;/td&gt;
-
-&lt;td&gt;
-&lt;table border=&quot;0&quot; style=&quot;border: none;&quot;&gt;
-&lt;tr&gt;
-    &lt;td&gt; 
-        &lt;table&gt;&lt;tr&gt; 
-        
-            &lt;td style=&quot;min-width: 50px;&quot;&gt;$\varphi / \pi = $&lt;/td&gt; 
-            &lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;num_phi&quot; value=&quot;0&quot; step=&quot;0.01&quot; 
-                       style=&quot;max-width: 100px;&quot; oninput=&quot;updatePhi();&quot;/&gt;&lt;/td&gt; 
-        &lt;/tr&gt;&lt;/table&gt;
-    &lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;/td&gt;
-&lt;/table&gt;
-
-&lt;center&gt;
-&lt;svg viewbox=&quot;-5.1, -5.1, 11, 11&quot; width=&quot;600px&quot; heigth=&quot;400px&quot;&gt;
-    &lt;marker orient=&quot;auto&quot; refY=&quot;0&quot; refX=&quot;0&quot; id=&quot;marker_arrow&quot; style=&quot;overflow:visible&quot;&gt;
-        &lt;path d=&quot;M 0,0 5,-5 -12.5,0 5,5 0,0 Z&quot;
-            style=&quot;stroke:gray; fill: gray;&quot;
-            transform=&quot;matrix(-0.4,0,0,-0.4,-4,0)&quot; /&gt;
-    &lt;/marker&gt;
-    &lt;marker orient=&quot;auto&quot; refY=&quot;0&quot; refX=&quot;0&quot; id=&quot;marker_arrow_black&quot; style=&quot;overflow:visible&quot;&gt;
-        &lt;path d=&quot;M 0,0 5,-5 -12.5,0 5,5 0,0 Z&quot;
-                style=&quot;stroke:black; fill: black;&quot;
-                transform=&quot;matrix(-0.4,0,0,-0.4,-4,0)&quot; /&gt;
-    &lt;/marker&gt;
-    &lt;g transform=&quot;scale(1, -1)&quot;&gt;
-        &lt;path d=&quot;m 0,-4.5, 0,9&quot;
-            style=&quot;stroke:black;stroke-width:0.1;marker-end:url(#marker_arrow_black)&quot; /&gt;
-        &lt;path d=&quot;m -4.5,0, 9,0&quot;
-            style=&quot;stroke:black;stroke-width:0.1;marker-end:url(#marker_arrow_black)&quot; /&gt;
-        &lt;g id=&quot;phi_content&quot; transform=&quot;matrix(1, 0, 0, 1, 0, 0)&quot;&gt;
-            &lt;path d=&quot;m 0,-4.5, 0,9&quot;
-                style=&quot;stroke:gray;stroke-width:0.1;marker-end:url(#marker_arrow)&quot; /&gt;
-            &lt;path d=&quot;m -4.5,0, 9,0&quot;
-                style=&quot;stroke:gray;stroke-width:0.1;marker-end:url(#marker_arrow)&quot; /&gt;
-                
-            &lt;rect x=&quot;0.5&quot; y=&quot;0.5&quot; width=&quot;1&quot; height=&quot;3&quot; fill=&quot;blue&quot; stroke=&quot;black&quot; stroke-width=&quot;0.1&quot;/&gt;
-            &lt;polygon points=&quot;350,75  379,161 469,161 397,215 423,301 350,250 277,301 303,215 231,161 321,161&quot;
-                style=&quot;fill:green;stroke:black;stroke-width:5;fill-rule:evenodd;&quot;
-                transform=&quot;translate(-8, -6) scale(0.015)&quot; /&gt;
-        &lt;/g&gt;
-    &lt;/g&gt;
-&lt;/svg&gt;
-&lt;/center&gt;
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<script type="text/javascript">
-    function updatePhi() {
-        
-        var content = document.getElementById("phi_content");
-        
-        var phi = document.getElementById("num_phi").value * Math.PI;
-        
-        var a = Math.cos(phi);
-        var b = -Math.sin(phi);
-        var c = -b;
-        var d = a
-        
-        content.setAttribute('transform', "matrix("+a+","+c+","+b+","+d+",0,0)");
-    }
-</script>
-
-<table><tr>
-
-<td>
-<p>
-    Benutze Transormationsmatrix 
-    $\begin{pmatrix} \cos(\varphi) & -\sin(\varphi) \\ \sin(\varphi) & \cos(\varphi) \end{pmatrix}$
-</p>
-</td>
-
-<td>
-<table border="0" style="border: none;">
-<tr>
-    <td> 
-        <table><tr> 
-        
-            <td style="min-width: 50px;">$\varphi / \pi = $</td> 
-            <td><input type="number" id="num_phi" value="0" step="0.01" 
-                       style="max-width: 100px;" oninput="updatePhi();"/></td> 
-        </tr></table>
-    </td>
 </tr>
 </table>
 
-</td>
-</table>
-
 <center>
 <svg viewbox="-5.1, -5.1, 11, 11" width="600px" heigth="400px">
     <marker orient="auto" refY="0" refX="0" id="marker_arrow" style="overflow:visible">
         <path d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
-            style="stroke:gray; fill: gray;"
+            style="stroke:gray; fill: gray;" fill-opacity="0.5" stroke-opacity="0.5"
             transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
     <marker orient="auto" refY="0" refX="0" id="marker_arrow_black" style="overflow:visible">
@@ -12270,24 +12216,84 @@ $$<h1 id="Blatt-1-Aufgabe-1b">Blatt 1 Aufgabe 1b<a class="anchor-link" href="#Bl
                 style="stroke:black; fill: black;"
                 transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
+    <marker orient="auto" refY="0" refX="0" id="marker_arrow_red" style="overflow:visible">
+        <path d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+                style="stroke:red; fill: red;"
+                transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker orient="auto" refY="0" refX="0" id="marker_arrow_purple" style="overflow:visible">
+        <path d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+                style="stroke:purple; fill: purple;"
+                transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
     <g transform="scale(1, -1)">
         <path d="m 0,-4.5, 0,9"
             style="stroke:black;stroke-width:0.1;marker-end:url(#marker_arrow_black)" />
         <path d="m -4.5,0, 9,0"
             style="stroke:black;stroke-width:0.1;marker-end:url(#marker_arrow_black)" />
-        <g id="phi_content" transform="matrix(1, 0, 0, 1, 0, 0)">
-            <path d="m 0,-4.5, 0,9"
+        <g id="black_markers"></g>
+        
+        <g id="bsp1_content" transform="matrix(1, 0, 0, 1, 0, 0)">
+            <path d="m 0,-4.5, 0,9" fill-opacity="0.5" stroke-opacity="0.5"
                 style="stroke:gray;stroke-width:0.1;marker-end:url(#marker_arrow)" />
-            <path d="m -4.5,0, 9,0"
+            <path d="m -4.5,0, 9,0" fill-opacity="0.5" stroke-opacity="0.5"
                 style="stroke:gray;stroke-width:0.1;marker-end:url(#marker_arrow)" />
-                
-            <rect x="0.5" y="0.5" width="1" height="3" fill="blue" stroke="black" stroke-width="0.1"/>
+            <g id="gray_markers"></g>
+            
+            <rect x="1" y="1" width="2" height="2" fill="blue" stroke="black" 
+                stroke-width="0.1" />
+            <line x1="1" y1="1" x2="0" y2="1" stroke="black" stroke-width="0.04" stroke-dasharray="0.04, 0.04" 
+                stroke-opacity="0.5" />
+            <line x1="1" y1="1" x2="1" y2="0" stroke="black" stroke-width="0.04" stroke-dasharray="0.04, 0.04" 
+                stroke-opacity="0.5" />
+            <line x1="3" y1="1" x2="3" y2="0" stroke="black" stroke-width="0.04" stroke-dasharray="0.04, 0.04" 
+                stroke-opacity="0.5" />
+            <line x1="1" y1="3" x2="0" y2="3" stroke="black" stroke-width="0.04" stroke-dasharray="0.04, 0.04" 
+                stroke-opacity="0.5" />
             <polygon points="350,75  379,161 469,161 397,215 423,301 350,250 277,301 303,215 231,161 321,161"
                 style="fill:green;stroke:black;stroke-width:5;fill-rule:evenodd;"
                 transform="translate(-8, -6) scale(0.015)" />
+            <polygon points="-1,1 -1,3 -3,1" style="fill:orange;stroke:black;stroke-width:0.1;fill-rule:evenodd;" />
+            <text x="0.5" y="3" style="font-size: 1.8" transform="scale(1, -1)" stroke="balck" fill="brown"
+                    font-family="MathJax_Script">
+                <tspan stroke="black" stroke-width="0.07">KIT</tspan>
+            </text>
+            
+            <!--
+            <path id="eigen1" d="m 0,0, 0,3"
+                style="stroke:red;stroke-width:0.1;marker-end:url(#marker_arrow_red)" />
+            <path id="eigen2" d="m 0,0, 3,0"
+                style="stroke:purple;stroke-width:0.1;marker-end:url(#marker_arrow_purple)" />
+            -->
         </g>
+        <!--
+        <path id="eigen1_out" d="m 0,0, 0,3"
+            style="stroke:red;stroke-width:0.1;marker-end:url(#marker_arrow_red)" />
+        <path id="eigen2_out" d="m 0,0, 3,0"
+            style="stroke:purple;stroke-width:0.1;marker-end:url(#marker_arrow_purple);" />
+        -->
     </g>
 </svg>
+
+<script type="text/javascript">
+    function marker_text(stroke, params) {
+        s = "";
+        for(y = -4.0; y < 4; y += 1.0) {
+            s += '<line x1="-0.2" x2="0.2" y1="' + y + '" y2="' + y +
+                   '" stroke="' + stroke + '" stroke-width="0.05" ' + params + ' />\n';
+        }
+        for(x = -4.0; x < 4; x += 1.0) {
+            s +=  '<line y1="-0.2" y2="0.2" x1="' + x + '" x2="' + x 
+                  + '" stroke="' + stroke + '" stroke-width="0.05" />\n';
+        }
+        return s;
+    }
+    
+    document.getElementById("black_markers").innerHTML = marker_text("black");
+    document.getElementById("gray_markers").innerHTML = 
+        marker_text("gray", 'fill-opacity="0.5" stroke-opacity="0.5"');
+</script>
+
 </center>
 </div>
 
@@ -12301,42 +12307,165 @@ $$<h1 id="Blatt-1-Aufgabe-1b">Blatt 1 Aufgabe 1b<a class="anchor-link" href="#Bl
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Blatt-1-Aufgabe-4a">Blatt 1 Aufgabe 4a<a class="anchor-link" href="#Blatt-1-Aufgabe-4a">&#182;</a></h1><p>Gegeben seien:
+<h1 id="Blatt-2-Aufgabe-1b">Blatt 2 Aufgabe 1b<a class="anchor-link" href="#Blatt-2-Aufgabe-1b">&#182;</a></h1><p>Berechnen Sie die Determinanten folgender Matrizen
 $$
-\begin{pmatrix} i / \sqrt{2} \\ −1 / \sqrt{2} \\ 0 \end{pmatrix} \;\;,\;\;\;\;\;\;\;
-\begin{pmatrix} 1/2 \\ −i/2 \\ (1−i)/2 \end{pmatrix}
+A = 
+    \begin{pmatrix} 
+        1 &amp; 1 &amp; −1 &amp; −1 \\ 
+        1 &amp; −1 &amp; 1 &amp; −1 \\ 1 &amp; −1 &amp; −1 &amp; 1 \\
+        1 &amp; 1 &amp; 1 &amp; 1
+    \end{pmatrix} \;, 
+\;\;\;\;   
+B = 
+    \begin{pmatrix} 
+        1 &amp; 2 &amp; 3 &amp; 4 \\
+        −1&amp; 0 &amp; 1 &amp; 1 \\
+        3 &amp;−1 &amp; 4 &amp; 0 \\
+        4 &amp; 3 &amp; 2 &amp; 1
+    \end{pmatrix} \;,
+\;\;\;\; 
+\\
+C = 
+    \begin{pmatrix}
+        4 &amp; 1 &amp; 1 &amp; \alpha + 1 \\ 
+        1 &amp; 1 &amp; 0 &amp; 2          \\
+        1 &amp; 0 &amp; 1 &amp; 2          \\
+        3 &amp; 1 &amp; 1 &amp; \alpha
+    \end{pmatrix}.
 $$
-Ergänzen  Sie  einen  dritten  Vektor  so,  dass  die  Vektoren  die  Spalten  einer  unitären Matrix bilden.</p>
-<h1 id="Blatt-1-Aufgabe-4b">Blatt 1 Aufgabe 4b<a class="anchor-link" href="#Blatt-1-Aufgabe-4b">&#182;</a></h1><p>Sei $A \in \mathbb{C}^{n \times n}$ eine unitäre Matrix.</p>
-<ul>
-<li><strong>i)</strong> Rechnen Sie nach, dass $\langle Az,Az \rangle = \langle z,z \rangle$ für alle $z \in \mathbb{C}^n$ gilt.</li>
-<li><strong>ii)</strong> Sei $\lambda \in \mathbb{C}$ so, dass es einen Vektor $z \in \mathbb{C}^n \setminus \{0\}$gibt mit $Az = \lambda z$. Zeigen Sie,dass dann $|\lambda|= 1$ gilt.</li>
-</ul>
-<p><strong>Hinweis:</strong> Verwenden Sie die Definition einer unitären Matrix.</p>
+Für welche $\alpha \in \mathbb{C}$ ist $C$ regulär?</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.interactive.printing</span> <span class="k">import</span> <span class="n">init_printing</span>
+<span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="s1">&#39;mathjax&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sympy.matrices</span> <span class="k">import</span> <span class="n">Matrix</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">Symbol</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sy</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.printing.latex</span> <span class="k">import</span> <span class="n">latex</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">mathtex</span><span class="p">(</span><span class="n">sy_obj</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">latex</span><span class="p">(</span><span class="n">sy_obj</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">left[</span><span class="se">\\</span><span class="s2">begin</span><span class="si">{matrix}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">begin{</span><span class="si">%s</span><span class="s2">matrix}&quot;</span> <span class="o">%</span> <span class="n">style</span><span class="p">)</span> \
+                        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">end</span><span class="si">{matrix}</span><span class="se">\\</span><span class="s2">right]&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">end{</span><span class="si">%s</span><span class="s2">matrix}&quot;</span> <span class="o">%</span> <span class="n">style</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">tex2py</span><span class="p">(</span><span class="n">tex</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tex</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">begin</span><span class="si">{pmatrix}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;[[&quot;</span><span class="p">)</span> \
+              <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span> \
+              <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;],[&quot;</span><span class="p">)</span> \
+              <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">end</span><span class="si">{pmatrix}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;]]&quot;</span><span class="p">)</span> \
+              <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> \
+              <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> \
+              <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> \
+              <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;−&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span> \
+              <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">alpha&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">asList</span><span class="p">(</span><span class="n">tex</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="n">tex2py</span><span class="p">(</span><span class="n">tex</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">asNp</span><span class="p">(</span><span class="n">tex</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">asList</span><span class="p">(</span><span class="n">tex</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">asMatrix</span><span class="p">(</span><span class="n">tex</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">asList</span><span class="p">(</span><span class="n">tex</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">asFunc</span><span class="p">(</span><span class="n">tex</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;lambda a: np.array(&quot;</span> <span class="o">+</span> <span class="n">tex2py</span><span class="p">(</span><span class="n">tex</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">asSy</span><span class="p">(</span><span class="n">tex</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">alpha&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;Matrix(&quot;</span> <span class="o">+</span> <span class="n">tex2py</span><span class="p">(</span><span class="n">tex</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">asMatrix</span><span class="p">(</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">begin</span><span class="si">{pmatrix}</span><span class="s2"> </span>
+<span class="s2">            1 &amp; 1 &amp; −1 &amp; −1 </span><span class="se">\\\\</span><span class="s2"> </span>
+<span class="s2">            1 &amp; −1 &amp; 1 &amp; −1 </span><span class="se">\\\\</span><span class="s2"> </span>
+<span class="s2">            1 &amp; −1 &amp; −1 &amp; 1 </span><span class="se">\\\\</span><span class="s2"></span>
+<span class="s2">            1 &amp; 1 &amp; 1 &amp; 1</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">end</span><span class="si">{pmatrix}</span><span class="s2"></span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="n">asMatrix</span><span class="p">(</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">begin</span><span class="si">{pmatrix}</span><span class="s2"> </span>
+<span class="s2">            1 &amp; 2 &amp; 3 &amp; 4 </span><span class="se">\\\\</span><span class="s2"></span>
+<span class="s2">            −1&amp; 0 &amp; 1 &amp; 1 </span><span class="se">\\\\</span><span class="s2"></span>
+<span class="s2">            3 &amp;−1 &amp; 4 &amp; 0 </span><span class="se">\\\\</span><span class="s2"></span>
+<span class="s2">            4 &amp; 3 &amp; 2 &amp; 1</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">end</span><span class="si">{pmatrix}</span><span class="s2"></span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">C</span> <span class="o">=</span> <span class="n">asFunc</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">begin</span><span class="si">{pmatrix}</span><span class="s2"></span>
+<span class="s2">            4 &amp; 1 &amp; 1 &amp; </span><span class="se">\\</span><span class="s2">alpha + 1 </span><span class="se">\\\\</span><span class="s2"> </span>
+<span class="s2">            1 &amp; 1 &amp; 0 &amp; 2          </span><span class="se">\\\\</span><span class="s2"></span>
+<span class="s2">            1 &amp; 0 &amp; 1 &amp; 2          </span><span class="se">\\\\</span><span class="s2"></span>
+<span class="s2">            3 &amp; 1 &amp; 1 &amp; </span><span class="se">\\</span><span class="s2">alpha</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">end</span><span class="si">{pmatrix}</span><span class="s2"></span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">syC</span> <span class="o">=</span> <span class="n">asSy</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">begin</span><span class="si">{pmatrix}</span><span class="s2"></span>
+<span class="s2">            4 &amp; 1 &amp; 1 &amp; </span><span class="se">\\</span><span class="s2">alpha + 1 </span><span class="se">\\\\</span><span class="s2"> </span>
+<span class="s2">            1 &amp; 1 &amp; 0 &amp; 2          </span><span class="se">\\\\</span><span class="s2"></span>
+<span class="s2">            1 &amp; 0 &amp; 1 &amp; 2          </span><span class="se">\\\\</span><span class="s2"></span>
+<span class="s2">            3 &amp; 1 &amp; 1 &amp; </span><span class="se">\\</span><span class="s2">alpha</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">end</span><span class="si">{pmatrix}</span><span class="s2"></span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">phi</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">varphi&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">w</span> <span class="o">=</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">sy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">I</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span>
-<span class="n">U</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([</span>
-                <span class="p">[</span><span class="n">I</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">w</span><span class="p">],</span>
-                <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">sy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">I</span><span class="o">*</span><span class="n">w</span><span class="p">],</span>
-                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">I</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">w</span><span class="p">]</span>
-           <span class="p">])</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
-<span class="n">disp</span><span class="o">.</span><span class="n">display</span><span class="p">(</span>
-    <span class="n">disp</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;h2&gt;Aufgabe 4a&lt;/h2&gt;&quot;</span><span class="p">),</span> 
-    <span class="n">disp</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;$UU^* = $&quot;</span><span class="p">),</span> 
-    <span class="n">U</span><span class="p">,</span> 
-    <span class="n">u</span><span class="p">,</span> 
-    <span class="n">disp</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;$ = $&quot;</span><span class="p">),</span> 
-    <span class="n">sy</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">U</span><span class="o">*</span><span class="n">u</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;d_{</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">}&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
+<span class="n">display_det</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12349,75 +12478,108 @@ Ergänzen  Sie  einen  dritten  Vektor  so,  dass  die  Vektoren  die  Spalten  
 
 <div class="output_area">
 
-<div class="prompt"></div>
+<div class="prompt output_prompt">Out[68]:</div>
 
 
 
-<div class="output_html rendered_html output_subarea ">
-<h2>Aufgabe 4a</h2>
+<div class="output_html rendered_html output_subarea output_execute_result">
+$$\begin{vmatrix}d_{0,0} & d_{0,1} & d_{0,2} & d_{0,3}\\d_{1,0} & d_{1,1} & d_{1,2} & d_{1,3}\\d_{2,0} & d_{2,1} & d_{2,2} & d_{2,3}\\d_{3,0} & d_{3,1} & d_{3,2} & d_{3,3}\end{vmatrix} = \\+d_{0,0}\underbrace{\begin{vmatrix}d_{1,1} & d_{1,2} & d_{1,3}\\d_{2,1} & d_{2,2} & d_{2,3}\\d_{3,1} & d_{3,2} & d_{3,3}\end{vmatrix}}_{+d_{1,1}\underbrace{\begin{vmatrix}d_{2,2} & d_{2,3}\\d_{3,2} & d_{3,3}\end{vmatrix}}_{d_{2,2}*d_{3,3} - d_{2,3}*d_{3,2}}-d_{1,2}\underbrace{\begin{vmatrix}d_{2,1} & d_{2,3}\\d_{3,1} & d_{3,3}\end{vmatrix}}_{d_{2,1}*d_{3,3} - d_{2,3}*d_{3,1}}+d_{1,3}\underbrace{\begin{vmatrix}d_{2,1} & d_{2,2}\\d_{3,1} & d_{3,2}\end{vmatrix}}_{d_{2,1}*d_{3,2} - d_{2,2}*d_{3,1}}}-d_{0,1}\underbrace{\begin{vmatrix}d_{1,0} & d_{1,2} & d_{1,3}\\d_{2,0} & d_{2,2} & d_{2,3}\\d_{3,0} & d_{3,2} & d_{3,3}\end{vmatrix}}_{+d_{1,0}\underbrace{\begin{vmatrix}d_{2,2} & d_{2,3}\\d_{3,2} & d_{3,3}\end{vmatrix}}_{d_{2,2}*d_{3,3} - d_{2,3}*d_{3,2}}-d_{1,2}\underbrace{\begin{vmatrix}d_{2,0} & d_{2,3}\\d_{3,0} & d_{3,3}\end{vmatrix}}_{d_{2,0}*d_{3,3} - d_{2,3}*d_{3,0}}+d_{1,3}\underbrace{\begin{vmatrix}d_{2,0} & d_{2,2}\\d_{3,0} & d_{3,2}\end{vmatrix}}_{d_{2,0}*d_{3,2} - d_{2,2}*d_{3,0}}}\\+d_{0,2}\underbrace{\begin{vmatrix}d_{1,0} & d_{1,1} & d_{1,3}\\d_{2,0} & d_{2,1} & d_{2,3}\\d_{3,0} & d_{3,1} & d_{3,3}\end{vmatrix}}_{+d_{1,0}\underbrace{\begin{vmatrix}d_{2,1} & d_{2,3}\\d_{3,1} & d_{3,3}\end{vmatrix}}_{d_{2,1}*d_{3,3} - d_{2,3}*d_{3,1}}-d_{1,1}\underbrace{\begin{vmatrix}d_{2,0} & d_{2,3}\\d_{3,0} & d_{3,3}\end{vmatrix}}_{d_{2,0}*d_{3,3} - d_{2,3}*d_{3,0}}+d_{1,3}\underbrace{\begin{vmatrix}d_{2,0} & d_{2,1}\\d_{3,0} & d_{3,1}\end{vmatrix}}_{d_{2,0}*d_{3,1} - d_{2,1}*d_{3,0}}}-d_{0,3}\underbrace{\begin{vmatrix}d_{1,0} & d_{1,1} & d_{1,2}\\d_{2,0} & d_{2,1} & d_{2,2}\\d_{3,0} & d_{3,1} & d_{3,2}\end{vmatrix}}_{+d_{1,0}\underbrace{\begin{vmatrix}d_{2,1} & d_{2,2}\\d_{3,1} & d_{3,2}\end{vmatrix}}_{d_{2,1}*d_{3,2} - d_{2,2}*d_{3,1}}-d_{1,1}\underbrace{\begin{vmatrix}d_{2,0} & d_{2,2}\\d_{3,0} & d_{3,2}\end{vmatrix}}_{d_{2,0}*d_{3,2} - d_{2,2}*d_{3,0}}+d_{1,2}\underbrace{\begin{vmatrix}d_{2,0} & d_{2,1}\\d_{3,0} & d_{3,1}\end{vmatrix}}_{d_{2,0}*d_{3,1} - d_{2,1}*d_{3,0}}}$$
 </div>
 
 </div>
+
+</div>
+</div>
+
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display_det</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
 
 <div class="output_area">
 
-<div class="prompt"></div>
+<div class="prompt output_prompt">Out[69]:</div>
 
 
 
-<div class="output_html rendered_html output_subarea ">
-$UU^* = $
+<div class="output_html rendered_html output_subarea output_execute_result">
+$$16 = \det \big(A\big) = \begin{vmatrix}1 & 1 & -1 & -1\\1 & -1 & 1 & -1\\1 & -1 & -1 & 1\\1 & 1 & 1 & 1\end{vmatrix} = \\+1\underbrace{\begin{vmatrix}-1 & 1 & -1\\-1 & -1 & 1\\1 & 1 & 1\end{vmatrix}}_{-1\underbrace{\begin{vmatrix}-1 & 1\\1 & 1\end{vmatrix}}_{-2}-1\underbrace{\begin{vmatrix}-1 & 1\\1 & 1\end{vmatrix}}_{-2}-1\underbrace{\begin{vmatrix}-1 & -1\\1 & 1\end{vmatrix}}_{0}}-1\underbrace{\begin{vmatrix}1 & 1 & -1\\1 & -1 & 1\\1 & 1 & 1\end{vmatrix}}_{+1\underbrace{\begin{vmatrix}-1 & 1\\1 & 1\end{vmatrix}}_{-2}-1\underbrace{\begin{vmatrix}1 & 1\\1 & 1\end{vmatrix}}_{0}-1\underbrace{\begin{vmatrix}1 & -1\\1 & 1\end{vmatrix}}_{2}}\\-1\underbrace{\begin{vmatrix}1 & -1 & -1\\1 & -1 & 1\\1 & 1 & 1\end{vmatrix}}_{+1\underbrace{\begin{vmatrix}-1 & 1\\1 & 1\end{vmatrix}}_{-2}+1\underbrace{\begin{vmatrix}1 & 1\\1 & 1\end{vmatrix}}_{0}-1\underbrace{\begin{vmatrix}1 & -1\\1 & 1\end{vmatrix}}_{2}}+1\underbrace{\begin{vmatrix}1 & -1 & 1\\1 & -1 & -1\\1 & 1 & 1\end{vmatrix}}_{+1\underbrace{\begin{vmatrix}-1 & -1\\1 & 1\end{vmatrix}}_{0}+1\underbrace{\begin{vmatrix}1 & -1\\1 & 1\end{vmatrix}}_{2}+1\underbrace{\begin{vmatrix}1 & -1\\1 & 1\end{vmatrix}}_{2}}$$
 </div>
 
 </div>
+
+</div>
+</div>
+
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display_det</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
 
 <div class="output_area">
 
-<div class="prompt"></div>
+<div class="prompt output_prompt">Out[70]:</div>
 
 
 
-
-<div class="output_latex output_subarea ">
-$$\left[\begin{matrix}\frac{\sqrt{2} i}{2} & \frac{1}{2} & \frac{e^{i \varphi}}{2}\\- \frac{\sqrt{2}}{2} & - \frac{i}{2} & - \frac{i}{2} e^{i \varphi}\\0 & \frac{1}{2} - \frac{i}{2} & \frac{e^{i \varphi}}{2} \left(-1 + i\right)\end{matrix}\right]$$
+<div class="output_html rendered_html output_subarea output_execute_result">
+$$-45 = \det \big(B\big) = \begin{vmatrix}1 & 2 & 3 & 4\\-1 & 0 & 1 & 1\\3 & -1 & 4 & 0\\4 & 3 & 2 & 1\end{vmatrix} = \\+1\underbrace{\begin{vmatrix}0 & 1 & 1\\-1 & 4 & 0\\3 & 2 & 1\end{vmatrix}}_{-1\underbrace{\begin{vmatrix}-1 & 0\\3 & 1\end{vmatrix}}_{-1}+1\underbrace{\begin{vmatrix}-1 & 4\\3 & 2\end{vmatrix}}_{-14}}-2\underbrace{\begin{vmatrix}-1 & 1 & 1\\3 & 4 & 0\\4 & 2 & 1\end{vmatrix}}_{-1\underbrace{\begin{vmatrix}4 & 0\\2 & 1\end{vmatrix}}_{4}-1\underbrace{\begin{vmatrix}3 & 0\\4 & 1\end{vmatrix}}_{3}+1\underbrace{\begin{vmatrix}3 & 4\\4 & 2\end{vmatrix}}_{-10}}\\+3\underbrace{\begin{vmatrix}-1 & 0 & 1\\3 & -1 & 0\\4 & 3 & 1\end{vmatrix}}_{-1\underbrace{\begin{vmatrix}-1 & 0\\3 & 1\end{vmatrix}}_{-1}+1\underbrace{\begin{vmatrix}3 & -1\\4 & 3\end{vmatrix}}_{13}}-4\underbrace{\begin{vmatrix}-1 & 0 & 1\\3 & -1 & 4\\4 & 3 & 2\end{vmatrix}}_{-1\underbrace{\begin{vmatrix}-1 & 4\\3 & 2\end{vmatrix}}_{-14}+1\underbrace{\begin{vmatrix}3 & -1\\4 & 3\end{vmatrix}}_{13}}$$
 </div>
 
 </div>
+
+</div>
+</div>
+
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display_det</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="n">syC</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
 
 <div class="output_area">
 
-<div class="prompt"></div>
+<div class="prompt output_prompt">Out[71]:</div>
 
 
 
-
-<div class="output_latex output_subarea ">
-$$\left[\begin{matrix}- \frac{\sqrt{2} i}{2} & - \frac{\sqrt{2}}{2} & 0\\\frac{1}{2} & \frac{i}{2} & \frac{1}{2} + \frac{i}{2}\\\frac{1}{2} e^{- i \varphi} & \frac{i}{2} e^{- i \varphi} & \frac{1}{2} \left(-1 - i\right) e^{- i \varphi}\end{matrix}\right]$$
-</div>
-
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-$ = $
-</div>
-
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-
-
-<div class="output_latex output_subarea ">
-$$\left[\begin{matrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & 1\end{matrix}\right]$$
+<div class="output_html rendered_html output_subarea output_execute_result">
+$$\alpha - 5 = \det \big(C\big) = \begin{vmatrix}4 & 1 & 1 & \alpha + 1\\1 & 1 & 0 & 2\\1 & 0 & 1 & 2\\3 & 1 & 1 & \alpha\end{vmatrix} = \\+4\underbrace{\begin{vmatrix}1 & 0 & 2\\0 & 1 & 2\\1 & 1 & \alpha\end{vmatrix}}_{+1\underbrace{\begin{vmatrix}1 & 2\\1 & \alpha\end{vmatrix}}_{\alpha - 2}+2\underbrace{\begin{vmatrix}0 & 1\\1 & 1\end{vmatrix}}_{-1}}-1\underbrace{\begin{vmatrix}1 & 0 & 2\\1 & 1 & 2\\3 & 1 & \alpha\end{vmatrix}}_{+1\underbrace{\begin{vmatrix}1 & 2\\1 & \alpha\end{vmatrix}}_{\alpha - 2}+2\underbrace{\begin{vmatrix}1 & 1\\3 & 1\end{vmatrix}}_{-2}}\\+1\underbrace{\begin{vmatrix}1 & 1 & 2\\1 & 0 & 2\\3 & 1 & \alpha\end{vmatrix}}_{+1\underbrace{\begin{vmatrix}0 & 2\\1 & \alpha\end{vmatrix}}_{-2}-1\underbrace{\begin{vmatrix}1 & 2\\3 & \alpha\end{vmatrix}}_{\alpha - 6}+2\underbrace{\begin{vmatrix}1 & 0\\3 & 1\end{vmatrix}}_{1}}-\alpha + 1\underbrace{\begin{vmatrix}1 & 1 & 0\\1 & 0 & 1\\3 & 1 & 1\end{vmatrix}}_{+1\underbrace{\begin{vmatrix}0 & 1\\1 & 1\end{vmatrix}}_{-1}-1\underbrace{\begin{vmatrix}1 & 1\\3 & 1\end{vmatrix}}_{-2}}$$
 </div>
 
 </div>
@@ -12425,6 +12587,20 @@ $$\left[\begin{matrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & 1\end{matrix}\right]$$
 </div>
 </div>
 
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Blatt-2-Aufgabe-3">Blatt 2 Aufgabe 3<a class="anchor-link" href="#Blatt-2-Aufgabe-3">&#182;</a></h1><p>Seien $A,B \in \mathbb{C}^{n \times n}$. Welche der folgenden Aussagen gelten?</p>
+<ul>
+<li><strong>a)</strong> Die Determinante ist eine lineare Abbildung von $\mathbb{C}^{n \times n}$ nach $\mathbb{C}$.</li>
+<li><strong>b)</strong> $\det \big( A+B \big) = \det\big(A\big) + \det\big(B\big)$.</li>
+<li><strong>c)</strong> $\det\bigg( \big(\det(A) \big)B \bigg) = \big(\det(A) \big)^n \det(B)$.</li>
+</ul>
+
+</div>
+</div>
 </div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -12437,6 +12613,19 @@ Vielen Dank
 </center>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div></section></section>
 </div>
 </div>
