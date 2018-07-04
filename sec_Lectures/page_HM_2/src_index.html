@@ -166,6 +166,12 @@
         <li>
             <span data-tut="Tut09_Optimirung"></span>
         </li>
+        <li>
+            <span data-tut="Tut10_Koordinatentransformation"></span>
+        </li>
+        <li>
+            <span data-tut="Tut11_Integrale"></span>
+        </li>
     </ul>
 
     <script type="text/javascript">
@@ -174,7 +180,7 @@
             var r = R[i];
             var data = r.getAttribute("data-tut").split('_');
             var tut = data[0];
-            var name = data[1];
+            var name = data.slice(1, data.length).join('_');
             var url = tut + '_' + name.replace(" ", "") + '/' + tut;
             var title = tut + " - " + name.split(/(?=[A-Z])/).join(" ");
             var contrib = 'https://github.com/JakeI/MyWebpage/blob/master/sec_Lectures/page_HM_2/res/' 

@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+            });
+        </script>
+        <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+        </script>
+        <script type="text/javascript" 
+            src="https://unpkg.com/mathjs@5.0.0/dist/math.min.js">
+        </script>
+        <script type="text/javascript">
+    
+            var createCode = function() {
+                const a = document.getElementById("var_a").value;
+                const b = document.getElementById("var_b").value;
+                const s = document.getElementById("var_s").value;
+                const code = math.compile(s);
+                return phi => code.eval({a:a, b:b, phi:phi});
+            }
+            
+            var render = function(rofphi) {
+                rofphi = rofphi || createCode();
+                let out = document.getElementById("output_path");
+                let r = rofphi(-Math.PI);
+                let s = "M " + (-r) + ",0 L ";
+                const num = 1024;
+                for(let i = 0; i < num; i++) {
+                    let phi = (i+1)*2*Math.PI/num - Math.PI;
+                    let r = rofphi(phi);
+                    s += ((r*Math.cos(phi)).toFixed(4))+","+
+                         ((r*Math.sin(phi)).toFixed(4))+",";
+                }
+                //s += " Z";
+                out.setAttribute("d", s);
+            }
+
+            function update_text() {
+                let sel = document.getElementById("mySelector");
+                let v = sel.options[sel.selectedIndex].value;
+                let text = document.getElementById("var_s");
+                text.value = v;
+                render();
+            }
+        </script>
+    </head>
+    <body>  
+        <center>
+        <select id="mySelector" style="margin-right: 40px">
+            <option value="sqrt(a*abs(phi)) + b">Sqrt</option>
+            <option value="3*sin(a*phi) + b">Sin</option>
+            <option value="3 + sin(a*pi*phi)">Rose</option>
+            <option value="b+exp(a*phi/10)">Spiral</option>
+        </select>
+        <input type="button" 
+            onclick="update_text();" 
+            value="load" style="margin-right:40px;"/>
+        <span>$r = r(\varphi) = $</span>
+        <input id="var_s" type="text" value="sin(phi)" 
+            oninput="render();"/>
+        <span style="margin-left: 40px">$a = $</span>
+        <input id="var_a" type="number" step="0.05" value="0.0" 
+            style="max-width: 100px;"
+            oninput="render();" />
+        <span style="margin-left: 40px">$b = $</span>
+        <input id="var_b" type="number" step="0.05" value="0.0" 
+            style="max-width: 100px;"
+            oninput="render();" />
+        </center>
+        
+        
+        <center>
+        <svg viewbox="-5.1, -5.1, 11, 11" width="600px" heigth="400px">
+            <marker orient="auto" refY="0" refX="0" id="marker_arrow_black" style="overflow:visible">
+                <path d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+                        style="stroke:black; fill: black;"
+                        transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+            </marker>
+            <g transform="scale(1, -1)">
+                <path d="m 0,-4.5, 0,9"
+                    style="stroke:black;stroke-width:0.1;marker-end:url(#marker_arrow_black)" />
+                <path d="m -4.5,0, 9,0"
+                    style="stroke:black;stroke-width:0.1;marker-end:url(#marker_arrow_black)" />
+                <g id="black_markers"></g>
+                
+                <g id="bsp1_content" transform="matrix(1, 0, 0, 1, 0, 0)">
+                    <path id="output_path" d="M" fill="none" fill-opacity="0.0" 
+                        stroke-width="0.09" stroke="blue" />
+                </g>
+                
+            </g>
+        </svg>
+        </center>
+        
+        <script type="text/javascript">
+            function marker_text(stroke, params) {
+                s = "";
+                for(y = -4.0; y < 4; y += 1.0) {
+                    s += '<line x1="-0.2" x2="0.2" y1="' + y + '" y2="' + y +
+                            '" stroke="' + stroke + '" stroke-width="0.05" ' + params + ' />\n';
+                }
+                for(x = -4.0; x < 4; x += 1.0) {
+                    s +=  '<line y1="-0.2" y2="0.2" x1="' + x + '" x2="' + x 
+                            + '" stroke="' + stroke + '" stroke-width="0.05" />\n';
+                }
+                return s;
+            }
+            
+            document.getElementById("black_markers").innerHTML = marker_text("black");
+            
+            render();
+        </script>
+        
+        </center>
+    </body>
+</html>
